@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/app-sidebar';
+import { SidebarInset } from '@/components/ui/sidebar';
 
 const notoSans = Noto_Sans({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -33,8 +34,7 @@ export default function RootLayout({
         <TooltipProvider>
           <SidebarProvider>
             <AppSidebar />
-
-            <main>{children}</main>
+            <SidebarInset>{children}</SidebarInset>
           </SidebarProvider>
         </TooltipProvider>
       </body>
