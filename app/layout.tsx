@@ -20,16 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={cn(
-        'dark',
-        'h-full',
-        'antialiased',
-        'font-sans',
-        notoSans.variable,
-      )}
-    >
+    <html lang="en" className={cn('dark', 'h-full', 'antialiased', 'font-sans', notoSans.variable)}>
       <body>
         <TooltipProvider>
           <SidebarProvider>
