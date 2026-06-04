@@ -69,7 +69,7 @@ export function AppSidebar() {
         </SidebarGroup>
 
         <SidebarGroup>
-          <SidebarMenu className="gap-2">
+          <SidebarMenu>
             {navItems.map(({ href, label, icon: Icon }) => (
               <SidebarMenuItem key={href}>
                 <SidebarMenuButton asChild isActive={pathname === href} size="lg">

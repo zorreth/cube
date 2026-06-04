@@ -57,7 +57,7 @@ export function SidebarUser({ user, loading }: { user: User | null; loading: boo
 
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Are you sure?</DialogTitle>
+            <DialogTitle>Sign out?</DialogTitle>
             <DialogDescription>
               Your solves are saved and will be loaded next time you sign in.
             </DialogDescription>

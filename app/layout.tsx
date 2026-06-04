@@ -6,6 +6,7 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/app-sidebar';
 import { SidebarInset } from '@/components/ui/sidebar';
+import { PuzzleProvider } from '@/lib/puzzle-context';
 
 const notoSans = Noto_Sans({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -23,10 +24,12 @@ export default function RootLayout({
     <html lang="en" className={cn('dark', 'h-full', 'antialiased', 'font-sans', notoSans.variable)}>
       <body>
         <TooltipProvider>
-          <SidebarProvider>
-            <AppSidebar />
-            <SidebarInset>{children}</SidebarInset>
-          </SidebarProvider>
+          <PuzzleProvider>
+            <SidebarProvider>
+              <AppSidebar />
+              <SidebarInset>{children}</SidebarInset>
+            </SidebarProvider>
+          </PuzzleProvider>
         </TooltipProvider>
       </body>
     </html>
