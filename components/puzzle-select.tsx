@@ -34,7 +34,7 @@ export function PuzzleSelect() {
         }
         setIsLoading(false);
       });
-  }, []);
+  }, [setSelectedPuzzle]);
 
   function handleValueChange(value: string) {
     setSelected(value);
