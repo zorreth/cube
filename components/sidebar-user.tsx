@@ -50,7 +50,7 @@ export function SidebarUser({ user, loading }: { user: User | null; loading: boo
 
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="ghost" size="icon" className="shrink-0">
+          <Button variant="destructive" size="icon" className="shrink-0">
             <LogOut />
           </Button>
         </DialogTrigger>
