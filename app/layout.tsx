@@ -1,6 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Noto_Sans } from 'next/font/google';
+import { JetBrains_Mono, Noto_Sans } from 'next/font/google';
 import { cn } from '@/lib/utils';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { SidebarProvider } from '@/components/ui/sidebar';
@@ -9,6 +9,7 @@ import { SidebarInset } from '@/components/ui/sidebar';
 import { PuzzleProvider } from '@/lib/puzzle-context';
 
 const notoSans = Noto_Sans({ subsets: ['latin'], variable: '--font-sans' });
+const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono' });
 
 export const metadata: Metadata = {
   title: 'Antisune - Speedcubing timer, platform & progress tracker',
@@ -21,7 +22,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn('dark', 'h-full', 'antialiased', 'font-sans', notoSans.variable)}>
+    <html
+      lang="en"
+      className={cn('dark h-full antialiased font-sans', notoSans.variable, jetbrainsMono.variable)}
+    >
       <body>
         <TooltipProvider>
           <PuzzleProvider>
