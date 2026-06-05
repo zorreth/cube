@@ -16,8 +16,7 @@ import { Skeleton } from './ui/skeleton';
 export function PuzzleSelect() {
   const [isLoading, setIsLoading] = useState(true);
   const [puzzles, setPuzzles] = useState<Puzzle[]>([]);
-  const [selected, setSelected] = useState<string | undefined>(undefined);
-  const { setSelectedPuzzle } = usePuzzle();
+  const { selectedPuzzle, setSelectedPuzzle } = usePuzzle();
 
   useEffect(() => {
     const supabase = createClient();
@@ -28,7 +27,6 @@ export function PuzzleSelect() {
         if (data) {
           setPuzzles(data);
           if (data.length > 0) {
-            setSelected(`puzzle-${data[0].id}`);
             setSelectedPuzzle(data[0]);
           }
         }
@@ -37,7 +35,6 @@ export function PuzzleSelect() {
   }, [setSelectedPuzzle]);
 
   function handleValueChange(value: string) {
-    setSelected(value);
     const id = parseInt(value.replace('puzzle-', ''));
     setSelectedPuzzle(puzzles.find((p) => p.id === id) ?? null);
   }
@@ -45,7 +42,7 @@ export function PuzzleSelect() {
   if (isLoading) return <Skeleton className="h-8 w-full" />;
 
   return (
-    <Select value={selected} onValueChange={handleValueChange}>
+    <Select value={`puzzle-${selectedPuzzle?.id}`} onValueChange={handleValueChange}>
       <SelectTrigger className="w-full">
         <SelectValue placeholder="Select puzzle" />
       </SelectTrigger>

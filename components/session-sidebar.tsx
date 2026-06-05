@@ -5,7 +5,6 @@ import { Badge } from './ui/badge';
 import { Separator } from './ui/separator';
 import { usePuzzle } from '@/lib/puzzle-context';
 import { createClient } from '@/lib/supabase/client';
-import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 
 interface Solve {
   id: number;
@@ -74,38 +73,27 @@ export function SessionSidebar() {
               {
                 label: 'BEST',
                 value: fmt(calcBest(times)),
-                hint: 'Best single solve of this puzzle',
               },
               {
                 label: 'MEAN',
                 value: fmt(calcMean(times)),
-                hint: 'Mean of all solves of this puzzle',
               },
               {
                 label: 'AO5',
                 value: fmt(calcAo(times, 5)),
-                hint: 'Average of last 5 (best and worst excluded)',
               },
               {
                 label: 'AO12',
                 value: fmt(calcAo(times, 12)),
-                hint: 'Average of last 12 (best and worst excluded)',
               },
             ] as const
-          ).map(({ label, value, hint }) => (
-            <Tooltip key={label}>
-              <TooltipTrigger asChild>
-                <div className="flex flex-col rounded-lg border bg-muted p-2">
-                  <span className="text-xs font-medium text-muted-foreground tracking-wider">
-                    {label}
-                  </span>
-                  <span className="text-lg font-semibold">{value}</span>
-                </div>
-              </TooltipTrigger>
-              <TooltipContent side="bottom">
-                <p>{hint}</p>
-              </TooltipContent>
-            </Tooltip>
+          ).map(({ label, value }) => (
+            <div key={label} className="flex flex-col rounded-lg border bg-muted p-2">
+              <span className="text-xs font-medium text-muted-foreground tracking-wider">
+                {label}
+              </span>
+              <span className="text-lg font-semibold">{value}</span>
+            </div>
           ))}
         </div>
       </div>
