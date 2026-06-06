@@ -23,6 +23,7 @@ export function PuzzleSelect() {
     supabase
       .from('puzzles')
       .select('id, name, color')
+      .order('id')
       .then(({ data }) => {
         if (data) {
           setPuzzles(data);
