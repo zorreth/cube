@@ -74,8 +74,6 @@ function SelectContent({
         )}
         position={position}
         align={align}
-        side={side}
-        sideOffset={sideOffset}
         {...props}
       >
         <SelectScrollUpButton />

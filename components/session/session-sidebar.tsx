@@ -1,18 +1,14 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Badge } from '../ui/badge';
-import { Separator } from '../ui/separator';
 import { usePuzzle } from '@/contexts/puzzle';
 import { createClient } from '@/lib/supabase/client';
-import { calcAo, calcBest, calcMean, formatTime } from '@/lib/session-stats';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '../ui/sheet';
+import { Button } from '../ui/button';
+import { BarChart2 } from 'lucide-react';
+import { SessionContent, Solve } from './session-content';
+import { Badge } from '../ui/badge';
 import { Skeleton } from '../ui/skeleton';
-
-interface Solve {
-  id: number;
-  created_at: string;
-  time: number;
-}
 
 export function SessionSidebar() {
   const { selectedPuzzle } = usePuzzle();
@@ -30,61 +26,51 @@ export function SessionSidebar() {
       .then(({ data }) => setSolves(data ?? []));
   }, [selectedPuzzle]);
 
-  const times = solves.map((s) => s.time);
-  const fmt = (v: number | null) => (v === null ? '–' : formatTime(v));
-
   return (
-    <div className="hidden md:flex h-svh w-80 flex-col border-l bg-sidebar text-sidebar-foreground shrink-0">
-      <div className="p-4">
-        <div className="flex justify-between items-center">
+    <>
+      {/* Desktop sidebar */}
+      <div className="hidden md:flex h-svh w-80 flex-col border-l bg-sidebar text-sidebar-foreground shrink-0">
+        <div className="flex justify-between items-center p-4 pt-4">
           <span className="font-bold">Session</span>
           {selectedPuzzle ? (
-            <Badge style={{ backgroundColor: selectedPuzzle?.color }}>{selectedPuzzle.name}</Badge>
+            <Badge style={{ backgroundColor: selectedPuzzle.color }}>{selectedPuzzle.name}</Badge>
           ) : (
             <Skeleton className="h-5 w-12 rounded-full" />
           )}
         </div>
 
-        <div className="grid grid-cols-2 gap-2 mt-4">
-          {(
-            [
-              {
-                label: 'BEST',
-                value: fmt(calcBest(times)),
-              },
-              {
-                label: 'MEAN',
-                value: fmt(calcMean(times)),
-              },
-              {
-                label: 'AO5',
-                value: fmt(calcAo(times, 5)),
-              },
-              {
-                label: 'AO12',
-                value: fmt(calcAo(times, 12)),
-              },
-            ] as const
-          ).map(({ label, value }) => (
-            <div key={label} className="flex flex-col rounded-lg border bg-muted p-2">
-              <span className="text-xs font-medium text-muted-foreground tracking-wider">
-                {label}
-              </span>
-              <span className="text-lg font-semibold">{value}</span>
-            </div>
-          ))}
-        </div>
+        <SessionContent solves={solves} />
       </div>
 
-      <Separator className="w-full mb-8" />
+      {/* Mobile sheet */}
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button
+            size="icon"
+            variant="secondary"
+            className="md:hidden fixed bottom-4 right-4 z-40 rounded-full size-12"
+          >
+            <BarChart2 className="size-5" />
+            <span className="sr-only">Session stats</span>
+          </Button>
+        </SheetTrigger>
+        <SheetContent aria-describedby={undefined}>
+          <SheetHeader>
+            <SheetTitle className="flex gap-2 items-center">
+              Session
+              {selectedPuzzle ? (
+                <Badge style={{ backgroundColor: selectedPuzzle.color }}>
+                  {selectedPuzzle.name}
+                </Badge>
+              ) : (
+                <Skeleton className="h-5 w-12 rounded-full" />
+              )}
+            </SheetTitle>
+          </SheetHeader>
 
-      {solves.length === 0 && (
-        <span className="text-center text-muted-foreground text-xs">
-          No solves yet.
-          <br />
-          Hold space to begin your session.
-        </span>
-      )}
-    </div>
+          <SessionContent solves={solves} />
+        </SheetContent>
+      </Sheet>
+    </>
   );
 }

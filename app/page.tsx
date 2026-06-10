@@ -5,7 +5,7 @@ import { TimerProvider } from '@/contexts/timer';
 export default function Page() {
   return (
     <TimerProvider>
-      <div className="flex">
+      <div className="flex h-svh">
         <TimerArea />
         <SessionSidebar />
       </div>
