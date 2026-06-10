@@ -3,9 +3,14 @@
 import { useTimer } from '@/contexts/timer';
 import { cn } from '@/lib/utils';
 import { useEffect, useRef } from 'react';
+import { ScrambleGenerator } from '../scramble/scramble-generator';
+import { Timer } from './timer';
+import { TimerState } from './timer-state';
+import { usePuzzle } from '@/contexts/puzzle';
 
-export function TimerArea({ children }: { children: React.ReactNode }) {
+export function TimerArea() {
   const { timerState, setTimerState } = useTimer();
+  const { regenerateScramble } = usePuzzle();
 
   const holdTimeout = useRef<NodeJS.Timeout | null>(null);
   const timerStateRef = useRef(timerState);
@@ -17,6 +22,7 @@ export function TimerArea({ children }: { children: React.ReactNode }) {
   const onPointerDown = () => {
     if (timerStateRef.current === 'running') {
       setTimerState('idle');
+      regenerateScramble();
       return;
     }
 
@@ -48,7 +54,9 @@ export function TimerArea({ children }: { children: React.ReactNode }) {
       onPointerDown={onPointerDown}
       onPointerUp={onPointerUp}
     >
-      {children}
+      <ScrambleGenerator />
+      <Timer />
+      <TimerState />
     </div>
   );
 }

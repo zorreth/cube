@@ -2,19 +2,18 @@
 
 import { usePuzzle } from '@/contexts/puzzle';
 import { useTimer } from '@/contexts/timer';
-import { generateScramble } from '@/lib/scramble';
 import { cn } from '@/lib/utils';
 import { useEffect } from 'react';
 import { Button } from '../ui/button';
 import { Shuffle } from 'lucide-react';
 
 export function ScrambleGenerator() {
-  const { scramble, setScramble } = usePuzzle();
+  const { scramble, regenerateScramble } = usePuzzle();
   const { timerState } = useTimer();
 
   useEffect(() => {
-    setScramble(generateScramble());
-  }, [setScramble]);
+    regenerateScramble();
+  }, [regenerateScramble]);
 
   return (
     <div
@@ -29,7 +28,7 @@ export function ScrambleGenerator() {
       <Button
         size="lg"
         variant="ghost"
-        onClick={() => setScramble(generateScramble())}
+        onClick={regenerateScramble}
         onPointerDown={(e) => e.stopPropagation()}
         onPointerUp={(e) => e.stopPropagation()}
       >

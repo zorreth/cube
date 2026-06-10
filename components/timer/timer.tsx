@@ -1,18 +1,46 @@
 'use client';
 
-import { useTimer } from '@/contexts/timer';
-import { cn } from '@/lib/utils';
 import { useEffect, useRef, useState } from 'react';
+import { useTimer } from '@/contexts/timer';
+import { formatTime } from '@/lib/session-stats';
+import { usePuzzle } from '@/contexts/puzzle';
+import { cn } from '@/lib/utils';
 
 export function Timer() {
-  const [time] = useState('0.00');
-  const { timerState, setTimerState } = useTimer();
+  const [time, setTime] = useState('0.00');
 
-  const holdTimeout = useRef<NodeJS.Timeout | null>(null);
+  const { timerState, setTimerState } = useTimer();
+  const { regenerateScramble } = usePuzzle();
+
+  const holdTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const timerStartDateRef = useRef<number>(0);
   const timerStateRef = useRef(timerState);
 
   useEffect(() => {
     timerStateRef.current = timerState;
+  }, [timerState]);
+
+  useEffect(() => {
+    if (timerState === 'running') {
+      timerStartDateRef.current = Date.now();
+      intervalRef.current = setInterval(() => {
+        const elapsed = Date.now() - timerStartDateRef.current;
+        setTime(formatTime(elapsed));
+      }, 10);
+    } else {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    }
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    };
   }, [timerState]);
 
   useEffect(() => {
@@ -21,11 +49,12 @@ export function Timer() {
 
       if (timerStateRef.current === 'running') {
         setTimerState('idle');
+        regenerateScramble();
         return;
       }
 
       setTimerState('ready');
-      holdTimeout.current = setTimeout(() => {
+      holdTimeoutRef.current = setTimeout(() => {
         setTimerState('set');
       }, 500);
     };
@@ -33,9 +62,9 @@ export function Timer() {
     const onKeyUp = (e: KeyboardEvent) => {
       if (e.code !== 'Space') return;
 
-      if (holdTimeout.current) {
-        clearTimeout(holdTimeout.current);
-        holdTimeout.current = null;
+      if (holdTimeoutRef.current) {
+        clearTimeout(holdTimeoutRef.current);
+        holdTimeoutRef.current = null;
       }
 
       if (timerStateRef.current === 'set') {
@@ -51,9 +80,9 @@ export function Timer() {
     return () => {
       document.removeEventListener('keydown', onKeyDown);
       document.removeEventListener('keyup', onKeyUp);
-      if (holdTimeout.current) clearTimeout(holdTimeout.current);
+      if (holdTimeoutRef.current) clearTimeout(holdTimeoutRef.current);
     };
-  }, [setTimerState]);
+  }, [setTimerState, regenerateScramble]);
 
   return (
     <span
