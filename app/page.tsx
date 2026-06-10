@@ -8,7 +8,7 @@ export default function Page() {
   return (
     <TimerProvider>
       <div className="flex">
-        <div className="flex-1 flex flex-col items-center justify-between p-8">
+        <div className="relative flex-1 flex flex-col items-center justify-between p-8">
           <ScrambleGenerator />
           <Timer />
           <TimerState />

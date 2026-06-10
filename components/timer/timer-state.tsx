@@ -1,6 +1,7 @@
 'use client';
 
 import { type TimerState as TimerStateValue, useTimer } from '@/contexts/timer';
+import { cn } from '@/lib/utils';
 
 const messages: Record<TimerStateValue, string> = {
   idle: 'hold SPACE / tap & hold to start',
@@ -12,7 +13,16 @@ const messages: Record<TimerStateValue, string> = {
 export function TimerState() {
   const { timerState } = useTimer();
 
-  const message = messages[timerState] ?? '';
+  const message = messages[timerState];
 
-  return <span className="font-mono text-accent-foreground text-xs">{message}</span>;
+  return (
+    <span
+      className={cn(
+        'font-mono text-accent-foreground text-xs transition-opacity duration-200',
+        timerState === 'running' ? 'opacity-0' : 'opacity-100',
+      )}
+    >
+      {message}
+    </span>
+  );
 }
