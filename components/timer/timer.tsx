@@ -4,13 +4,14 @@ import { useEffect, useRef, useState } from 'react';
 import { useTimer } from '@/contexts/timer';
 import { formatTime } from '@/lib/session-stats';
 import { usePuzzle } from '@/contexts/puzzle';
+import { createClient } from '@/lib/supabase/client';
 import { cn } from '@/lib/utils';
 
 export function Timer() {
   const [time, setTime] = useState('0.00');
 
   const { timerState, setTimerState } = useTimer();
-  const { regenerateScramble } = usePuzzle();
+  const { selectedPuzzle, regenerateScramble } = usePuzzle();
 
   const holdTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -44,12 +45,26 @@ export function Timer() {
   }, [timerState]);
 
   useEffect(() => {
+    const supabase = createClient();
+
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.code !== 'Space' || e.repeat) return;
 
       if (timerStateRef.current === 'running') {
+        const elapsed = Date.now() - timerStartDateRef.current;
+
+        setTime(formatTime(elapsed));
         setTimerState('idle');
         regenerateScramble();
+
+        supabase.auth.getUser().then(async ({ data }) => {
+          if (!data.user || !selectedPuzzle) return;
+          await supabase.from('solves').insert({
+            user_id: data.user.id,
+            puzzle_id: selectedPuzzle.id,
+            time: elapsed,
+          });
+        });
         return;
       }
 
@@ -82,7 +97,7 @@ export function Timer() {
       document.removeEventListener('keyup', onKeyUp);
       if (holdTimeoutRef.current) clearTimeout(holdTimeoutRef.current);
     };
-  }, [setTimerState, regenerateScramble]);
+  }, [setTimerState, regenerateScramble, selectedPuzzle]);
 
   return (
     <span

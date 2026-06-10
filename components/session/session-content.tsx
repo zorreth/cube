@@ -26,7 +26,7 @@ export function SessionContent({ solves }: { solves: Solve[] }) {
             <span className="text-xs font-medium text-muted-foreground tracking-wider">
               {label}
             </span>
-            <span className="text-lg font-semibold">{value}</span>
+            <span className="font-mono text-lg font-semibold">{value}</span>
           </div>
         ))}
       </div>
