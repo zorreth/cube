@@ -14,7 +14,7 @@ export function ScrambleGenerator() {
   }, [setScramble]);
 
   return (
-    <div className="flex flex-col gap-4 items-center p-8">
+    <div className="flex flex-col gap-4 items-center">
       <span className="font-mono font-semibold text-2xl text-center">{scramble}</span>
       <Button size="lg" variant="ghost" onClick={() => setScramble(generateScramble())}>
         <Shuffle /> New scramble

@@ -12,7 +12,7 @@ const notoSans = Noto_Sans({ subsets: ['latin'], variable: '--font-sans' });
 const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono' });
 
 export const metadata: Metadata = {
-  title: 'Antisune - Speedcubing timer, platform & progress tracker',
+  title: 'Antisune',
   description: 'Speedcubing timer, platform & progress tracker',
 };
 
