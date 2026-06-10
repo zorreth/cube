@@ -18,7 +18,7 @@ export function TimerState() {
   return (
     <span
       className={cn(
-        'font-mono text-accent-foreground text-xs transition-opacity duration-200',
+        'font-mono text-accent-foreground text-xs transition-opacity duration-200 select-none cursor-default',
         timerState === 'running' ? 'opacity-0' : 'opacity-100',
       )}
     >

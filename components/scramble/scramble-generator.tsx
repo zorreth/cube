@@ -23,8 +23,16 @@ export function ScrambleGenerator() {
         timerState === 'running' ? 'opacity-0' : 'opacity-100',
       )}
     >
-      <span className="font-mono font-semibold text-2xl text-center">{scramble}</span>
-      <Button size="lg" variant="ghost" onClick={() => setScramble(generateScramble())}>
+      <span className="font-mono font-semibold text-2xl text-center cursor-default">
+        {scramble}
+      </span>
+      <Button
+        size="lg"
+        variant="ghost"
+        onClick={() => setScramble(generateScramble())}
+        onPointerDown={(e) => e.stopPropagation()}
+        onPointerUp={(e) => e.stopPropagation()}
+      >
         <Shuffle /> New scramble
       </Button>
     </div>

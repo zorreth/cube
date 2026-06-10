@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 import { useEffect, useRef, useState } from 'react';
 
 export function Timer() {
-  const [time, setTime] = useState('0.00');
+  const [time] = useState('0.00');
   const { timerState, setTimerState } = useTimer();
 
   const holdTimeout = useRef<NodeJS.Timeout | null>(null);
@@ -58,9 +58,10 @@ export function Timer() {
   return (
     <span
       className={cn(
-        'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-mono font-semibold text-[168px] transition-colors',
+        'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-mono font-semibold text-[168px] transition-colors cursor-default',
         timerState === 'ready' && 'text-orange-300',
         timerState === 'set' && 'text-green-300',
+        timerState === 'running' && 'cursor-pointer',
       )}
     >
       {time}
