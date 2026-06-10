@@ -1,41 +1,17 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Badge } from './ui/badge';
-import { Separator } from './ui/separator';
-import { usePuzzle } from '@/lib/puzzle-context';
+import { Badge } from '../ui/badge';
+import { Separator } from '../ui/separator';
+import { usePuzzle } from '@/contexts/puzzle';
 import { createClient } from '@/lib/supabase/client';
+import { calcAo, calcBest, calcMean, formatTime } from '@/lib/session-stats';
+import { Skeleton } from '../ui/skeleton';
 
 interface Solve {
   id: number;
   created_at: string;
   time: number;
-}
-
-function formatTime(ms: number): string {
-  if (ms < 60000) {
-    return (ms / 1000).toFixed(2);
-  }
-  const minutes = Math.floor(ms / 60000);
-  const seconds = ((ms % 60000) / 1000).toFixed(2).padStart(5, '0');
-  return `${minutes}:${seconds}`;
-}
-
-function calcBest(times: number[]): number | null {
-  if (times.length === 0) return null;
-  return Math.min(...times);
-}
-
-function calcMean(times: number[]): number | null {
-  if (times.length === 0) return null;
-  return times.reduce((a, b) => a + b, 0) / times.length;
-}
-
-function calcAo(times: number[], n: number): number | null {
-  if (times.length < n) return null;
-  const last = [...times.slice(-n)].sort((a, b) => a - b);
-  const trimmed = last.slice(1, -1);
-  return trimmed.reduce((a, b) => a + b, 0) / trimmed.length;
 }
 
 export function SessionSidebar() {
@@ -62,9 +38,11 @@ export function SessionSidebar() {
       <div className="p-4">
         <div className="flex justify-between items-center">
           <span className="font-bold">Session</span>
-          <Badge style={{ backgroundColor: selectedPuzzle?.color }}>
-            {selectedPuzzle?.name ?? '–'}
-          </Badge>
+          {selectedPuzzle ? (
+            <Badge style={{ backgroundColor: selectedPuzzle?.color }}>{selectedPuzzle.name}</Badge>
+          ) : (
+            <Skeleton className="h-5 w-12 rounded-full" />
+          )}
         </div>
 
         <div className="grid grid-cols-2 gap-2 mt-4">

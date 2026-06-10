@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
-import { Puzzle, usePuzzle } from '@/lib/puzzle-context';
+import { Puzzle, usePuzzle } from '@/contexts/puzzle';
 import {
   Select,
   SelectContent,
@@ -10,8 +10,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from './ui/select';
-import { Skeleton } from './ui/skeleton';
+} from '../ui/select';
+import { Skeleton } from '../ui/skeleton';
 
 export function PuzzleSelect() {
   const [isLoading, setIsLoading] = useState(true);

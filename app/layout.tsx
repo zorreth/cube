@@ -4,9 +4,9 @@ import { JetBrains_Mono, Noto_Sans } from 'next/font/google';
 import { cn } from '@/lib/utils';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { SidebarProvider } from '@/components/ui/sidebar';
-import { AppSidebar } from '@/components/app-sidebar';
+import { AppSidebar } from '@/components/sidebar/app-sidebar';
 import { SidebarInset } from '@/components/ui/sidebar';
-import { PuzzleProvider } from '@/lib/puzzle-context';
+import { PuzzleProvider } from '@/contexts/puzzle';
 
 const notoSans = Noto_Sans({ subsets: ['latin'], variable: '--font-sans' });
 const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono' });

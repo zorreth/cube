@@ -2,11 +2,11 @@
 
 import Image from 'next/image';
 import { LogOut } from 'lucide-react';
-import { SignInDialog } from './sign-in-dialog';
+import { SignInDialog } from '../auth/sign-in-dialog';
 import { createClient } from '@/lib/supabase/client';
 import type { User } from '@supabase/supabase-js';
-import { Button } from './ui/button';
-import { Skeleton } from './ui/skeleton';
+import { Button } from '../ui/button';
+import { Skeleton } from '../ui/skeleton';
 import {
   Dialog,
   DialogClose,
@@ -16,7 +16,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from './ui/dialog';
+} from '../ui/dialog';
 
 export function SidebarUser({ user, loading }: { user: User | null; loading: boolean }) {
   if (loading) {

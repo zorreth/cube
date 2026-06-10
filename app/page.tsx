@@ -1,5 +1,5 @@
-import { ScrambleGenerator } from '@/components/scramble-generator';
-import { SessionSidebar } from '@/components/session-sidebar';
+import { ScrambleGenerator } from '@/components/timer/scramble-generator';
+import { SessionSidebar } from '@/components/session/session-sidebar';
 
 export default function Page() {
   return (
