@@ -4,14 +4,14 @@ import { useEffect, useRef, useState } from 'react';
 import { useTimer } from '@/contexts/timer';
 import { formatTime } from '@/lib/session-stats';
 import { usePuzzle } from '@/contexts/puzzle';
-import { createClient } from '@/lib/supabase/client';
+import { saveSolve } from '@/lib/supabase/solves';
 import { cn } from '@/lib/utils';
 
 export function Timer() {
   const [time, setTime] = useState('0.00');
 
   const { timerState, setTimerState } = useTimer();
-  const { selectedPuzzle, regenerateScramble } = usePuzzle();
+  const { selectedPuzzle, scramble, regenerateScramble } = usePuzzle();
 
   const holdTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -45,8 +45,6 @@ export function Timer() {
   }, [timerState]);
 
   useEffect(() => {
-    const supabase = createClient();
-
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.code !== 'Space' || e.repeat) return;
 
@@ -57,14 +55,7 @@ export function Timer() {
         setTimerState('idle');
         regenerateScramble();
 
-        supabase.auth.getUser().then(async ({ data }) => {
-          if (!data.user || !selectedPuzzle) return;
-          await supabase.from('solves').insert({
-            user_id: data.user.id,
-            puzzle_id: selectedPuzzle.id,
-            time: elapsed,
-          });
-        });
+        if (selectedPuzzle) saveSolve(selectedPuzzle.id, elapsed, scramble);
         return;
       }
 

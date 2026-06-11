@@ -33,12 +33,21 @@ export function SessionContent({ solves }: { solves: Solve[] }) {
 
       <Separator className="w-full my-4" />
 
-      {solves.length === 0 && (
+      {solves.length === 0 ? (
         <span className="text-center text-muted-foreground text-xs mb-8">
           No solves yet.
           <br />
           Hold space to begin your session.
         </span>
+      ) : (
+        <div className="flex flex-col" role="list">
+          {solves.map((solve, idx) => (
+            <div key={solve.id}>
+              <span>{idx + 1}</span>
+              <span>{solve.time}</span>
+            </div>
+          ))}
+        </div>
       )}
     </>
   );

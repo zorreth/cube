@@ -7,22 +7,27 @@ import { ScrambleGenerator } from '../scramble/scramble-generator';
 import { Timer } from './timer';
 import { TimerState } from './timer-state';
 import { usePuzzle } from '@/contexts/puzzle';
+import { saveSolve } from '@/lib/supabase/solves';
 
 export function TimerArea() {
   const { timerState, setTimerState } = useTimer();
-  const { regenerateScramble } = usePuzzle();
+  const { selectedPuzzle, scramble, regenerateScramble } = usePuzzle();
 
   const holdTimeout = useRef<NodeJS.Timeout | null>(null);
   const timerStateRef = useRef(timerState);
+  const timerStartRef = useRef<number>(0);
 
   useEffect(() => {
     timerStateRef.current = timerState;
+    if (timerState === 'running') timerStartRef.current = Date.now();
   }, [timerState]);
 
   const onPointerDown = () => {
     if (timerStateRef.current === 'running') {
+      const elapsed = Date.now() - timerStartRef.current;
       setTimerState('idle');
       regenerateScramble();
+      if (selectedPuzzle) saveSolve(selectedPuzzle.id, elapsed, scramble);
       return;
     }
 

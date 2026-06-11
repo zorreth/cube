@@ -18,12 +18,25 @@ export function SessionSidebar() {
     if (!selectedPuzzle) return;
 
     const supabase = createClient();
-    supabase
-      .from('solves')
-      .select('id, created_at, time')
-      .eq('puzzle_id', selectedPuzzle.id)
-      .order('created_at', { ascending: true })
-      .then(({ data }) => setSolves(data ?? []));
+
+    const fetchSolves = () =>
+      supabase
+        .from('solves')
+        .select('id, created_at, time')
+        .eq('puzzle_id', selectedPuzzle.id)
+        .order('created_at', { ascending: true })
+        .then(({ data }) => setSolves(data ?? []));
+
+    fetchSolves();
+
+    const channel = supabase
+      .channel(`solves:${selectedPuzzle.id}`)
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'solves' }, fetchSolves)
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, [selectedPuzzle]);
 
   return (
