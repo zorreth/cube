@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
-import { Puzzle, usePuzzle } from '@/contexts/puzzle';
+import { Puzzle, useSolve } from '@/contexts/solve';
 import {
   Select,
   SelectContent,
@@ -16,7 +16,7 @@ import { Skeleton } from '../ui/skeleton';
 export function PuzzleSelect() {
   const [isLoading, setIsLoading] = useState(true);
   const [puzzles, setPuzzles] = useState<Puzzle[]>([]);
-  const { selectedPuzzle, setSelectedPuzzle } = usePuzzle();
+  const { selectedPuzzle, setSelectedPuzzle } = useSolve();
 
   useEffect(() => {
     const supabase = createClient();

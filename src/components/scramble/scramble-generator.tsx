@@ -1,6 +1,6 @@
 'use client';
 
-import { usePuzzle } from '@/contexts/puzzle';
+import { useSolve } from '@/contexts/solve';
 import { useTimer } from '@/contexts/timer';
 import { cn } from '@/lib/utils';
 import { useEffect } from 'react';
@@ -8,7 +8,7 @@ import { Button } from '../ui/button';
 import { Shuffle } from 'lucide-react';
 
 export function ScrambleGenerator() {
-  const { scramble, regenerateScramble } = usePuzzle();
+  const { scramble, regenerateScramble } = useSolve();
   const { timerState } = useTimer();
 
   useEffect(() => {

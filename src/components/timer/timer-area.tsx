@@ -6,12 +6,12 @@ import { useEffect, useRef } from 'react';
 import { ScrambleGenerator } from '../scramble/scramble-generator';
 import { Timer } from './timer';
 import { TimerState } from './timer-state';
-import { usePuzzle } from '@/contexts/puzzle';
+import { useSolve } from '@/contexts/solve';
 import { saveSolve } from '@/lib/supabase/solves';
 
 export function TimerArea() {
   const { timerState, setTimerState } = useTimer();
-  const { selectedPuzzle, scramble, regenerateScramble } = usePuzzle();
+  const { selectedPuzzle, scramble, regenerateScramble } = useSolve();
 
   const holdTimeout = useRef<NodeJS.Timeout | null>(null);
   const timerStateRef = useRef(timerState);

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTimer } from '@/contexts/timer';
 import { formatTime } from '@/lib/session-stats';
-import { usePuzzle } from '@/contexts/puzzle';
+import { useSolve } from '@/contexts/solve';
 import { saveSolve } from '@/lib/supabase/solves';
 import { cn } from '@/lib/utils';
 
@@ -11,7 +11,7 @@ export function Timer() {
   const [time, setTime] = useState('0.00');
 
   const { timerState, setTimerState } = useTimer();
-  const { selectedPuzzle, scramble, regenerateScramble } = usePuzzle();
+  const { selectedPuzzle, scramble, regenerateScramble } = useSolve();
 
   const holdTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);

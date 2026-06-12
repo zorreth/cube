@@ -6,7 +6,7 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/sidebar/app-sidebar';
 import { SidebarInset } from '@/components/ui/sidebar';
-import { PuzzleProvider } from '@/contexts/puzzle';
+import { SolveProvider } from '@/contexts/solve';
 
 const notoSans = Noto_Sans({ subsets: ['latin'], variable: '--font-sans' });
 const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono' });
@@ -28,12 +28,12 @@ export default function RootLayout({
     >
       <body>
         <TooltipProvider>
-          <PuzzleProvider>
+          <SolveProvider>
             <SidebarProvider>
               <AppSidebar />
               <SidebarInset>{children}</SidebarInset>
             </SidebarProvider>
-          </PuzzleProvider>
+          </SolveProvider>
         </TooltipProvider>
       </body>
     </html>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { usePuzzle } from '@/contexts/puzzle';
+import { useSolve } from '@/contexts/solve';
 import { createClient } from '@/lib/supabase/client';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '../ui/sheet';
 import { Button } from '../ui/button';
@@ -11,7 +11,7 @@ import { Badge } from '../ui/badge';
 import { Skeleton } from '../ui/skeleton';
 
 export function SessionSidebar() {
-  const { selectedPuzzle } = usePuzzle();
+  const { selectedPuzzle } = useSolve();
   const [solves, setSolves] = useState<Solve[]>([]);
 
   useEffect(() => {
