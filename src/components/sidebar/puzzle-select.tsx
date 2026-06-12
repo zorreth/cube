@@ -25,15 +25,17 @@ export function PuzzleSelect() {
       .select('id, name, color')
       .order('id')
       .then(({ data }) => {
-        if (data) {
-          setPuzzles(data);
-          if (data.length > 0) {
-            setSelectedPuzzle(data[0]);
-          }
+        if (!data) return;
+
+        setPuzzles(data);
+
+        if (data.length > 0 && !selectedPuzzle) {
+          setSelectedPuzzle(data[0]);
         }
+
         setIsLoading(false);
       });
-  }, [setSelectedPuzzle]);
+  }, [selectedPuzzle, setSelectedPuzzle]);
 
   function handleValueChange(value: string) {
     const id = parseInt(value.replace('puzzle-', ''));
