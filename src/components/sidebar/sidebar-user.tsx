@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { LogOut } from 'lucide-react';
 import { SignInDialog } from '../auth/sign-in-dialog';
 import { createClient } from '@/lib/supabase/client';
-import type { User } from '@supabase/supabase-js';
 import { Button } from '../ui/button';
 import { Skeleton } from '../ui/skeleton';
 import {
@@ -17,8 +16,30 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '../ui/dialog';
+import { useEffect, useState } from 'react';
+import { User } from '@supabase/supabase-js';
 
-export function SidebarUser({ user, loading }: { user: User | null; loading: boolean }) {
+export function SidebarUser() {
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const supabase = createClient();
+
+    supabase.auth.getUser().then(({ data }) => {
+      setUser(data.user);
+      setLoading(false);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
   const signout = async () => {
     const supabase = createClient();
     await supabase.auth.signOut();

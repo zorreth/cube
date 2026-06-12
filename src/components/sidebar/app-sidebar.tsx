@@ -17,9 +17,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { PanelRight, Timer, TrendingUp, UserRound } from 'lucide-react';
-import { createClient } from '@/lib/supabase/client';
-import type { User } from '@supabase/supabase-js';
-import { useState, useEffect } from 'react';
 import { PuzzleSelect } from './puzzle-select';
 import { SidebarUser } from './sidebar-user';
 import { Button } from '../ui/button';
@@ -32,24 +29,8 @@ const navItems = [
 
 export function AppSidebar() {
   const pathname = usePathname();
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
 
   const { toggleSidebar } = useSidebar();
-
-  useEffect(() => {
-    const supabase = createClient();
-    supabase.auth.getUser().then(({ data }) => {
-      setUser(data.user);
-      setLoading(false);
-    });
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_, session) => {
-      setUser(session?.user ?? null);
-    });
-    return () => subscription.unsubscribe();
-  }, []);
 
   return (
     <>
@@ -92,7 +73,7 @@ export function AppSidebar() {
         <SidebarFooter>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarUser user={user} loading={loading} />
+              <SidebarUser />
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarFooter>
