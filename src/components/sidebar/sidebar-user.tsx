@@ -19,6 +19,11 @@ import {
 } from '../ui/dialog';
 
 export function SidebarUser({ user, loading }: { user: User | null; loading: boolean }) {
+  const signout = async () => {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+  };
+
   if (loading) {
     return (
       <div className="flex items-center gap-3 px-2 py-1">
@@ -67,7 +72,7 @@ export function SidebarUser({ user, loading }: { user: User | null; loading: boo
               <Button variant="outline">Cancel</Button>
             </DialogClose>
             <DialogClose asChild>
-              <Button variant="destructive" onClick={() => createClient().auth.signOut()}>
+              <Button variant="destructive" onClick={signout}>
                 Sign out
               </Button>
             </DialogClose>
