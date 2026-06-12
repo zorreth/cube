@@ -43,7 +43,7 @@ export function SessionSidebar() {
     <>
       {/* Desktop sidebar */}
       <div className="hidden md:flex h-svh w-80 flex-col border-l bg-sidebar text-sidebar-foreground shrink-0">
-        <div className="flex justify-between items-center p-4 pt-4">
+        <div className="flex justify-between items-center p-4">
           <span className="font-bold">Session</span>
           {selectedPuzzle ? (
             <Badge style={{ backgroundColor: selectedPuzzle.color }}>{selectedPuzzle.name}</Badge>

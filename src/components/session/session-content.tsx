@@ -12,8 +12,8 @@ export function SessionContent({ solves }: { solves: Solve[] }) {
   const fmt = (v: number | null) => (v === null ? '–' : formatTime(v));
 
   return (
-    <>
-      <div className="grid grid-cols-2 gap-2 px-4">
+    <div className="flex flex-col flex-1">
+      <div className="grid grid-cols-2 gap-2 px-4 mb-4">
         {(
           [
             { label: 'BEST', value: fmt(calcBest(times)) },
@@ -31,24 +31,30 @@ export function SessionContent({ solves }: { solves: Solve[] }) {
         ))}
       </div>
 
-      <Separator className="w-full my-4" />
+      <Separator className="w-full" />
 
-      {solves.length === 0 ? (
-        <span className="text-center text-muted-foreground text-xs mb-8">
-          No solves yet.
-          <br />
-          Hold space to begin your session.
-        </span>
-      ) : (
-        <div className="flex flex-col" role="list">
-          {solves.map((solve, idx) => (
-            <div key={solve.id}>
-              <span>{idx + 1}</span>
-              <span>{solve.time}</span>
-            </div>
-          ))}
-        </div>
-      )}
-    </>
+      <div className="flex-1">
+        {solves.length === 0 ? (
+          <p className="text-center text-muted-foreground text-xs mt-8">
+            No solves yet.
+            <br />
+            Hold space to begin your session.
+          </p>
+        ) : (
+          <div className="flex flex-col" role="list">
+            {solves.map((solve, idx) => (
+              <div key={solve.id} className="">
+                <span>{idx + 1}</span>
+                <span>{solve.time}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div className="py-2 px-4 border-t border-border">
+        <span className="text-muted-foreground text-xs">1 solves</span>
+      </div>
+    </div>
   );
 }
