@@ -5,10 +5,13 @@ import { Button } from '../ui/button';
 import { Trash } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import { cn } from '@/lib/utils';
+import { useTimer } from '@/contexts/timer';
 
 const fmt = (v: number | null) => (v === null ? '–' : formatTime(v));
 
 export function SessionContent({ solves }: { solves: Solve[] }) {
+  const { setIsDnf, setIsPenalty, timerHasSolve } = useTimer();
+
   const results = {
     best: { label: 'BEST', value: calcBest(solves) },
     mean: { label: 'MEAN', value: calcMean(solves) },
@@ -20,16 +23,34 @@ export function SessionContent({ solves }: { solves: Solve[] }) {
     const solve = solves.find((s) => s.id === solveId);
     if (!solve) return;
 
+    const newDnf = !solve.is_dnf;
+    if (solveId === solves[0].id && timerHasSolve) {
+      setIsDnf(newDnf);
+      if (newDnf) setIsPenalty(false);
+    }
+
     const supabase = createClient();
-    await supabase.from('solves').update({ is_dnf: !solve.is_dnf }).eq('id', solveId);
+    await supabase
+      .from('solves')
+      .update({ is_dnf: newDnf, is_penalty: newDnf ? false : solve.is_penalty })
+      .eq('id', solveId);
   };
 
   const onPenalty = async (solveId: number) => {
     const solve = solves.find((s) => s.id === solveId);
     if (!solve) return;
 
+    const newPenalty = !solve.is_penalty;
+    if (solveId === solves[0].id && timerHasSolve) {
+      setIsPenalty(newPenalty);
+      if (newPenalty) setIsDnf(false);
+    }
+
     const supabase = createClient();
-    await supabase.from('solves').update({ is_penalty: !solve.is_penalty }).eq('id', solveId);
+    await supabase
+      .from('solves')
+      .update({ is_penalty: newPenalty, is_dnf: newPenalty ? false : solve.is_dnf })
+      .eq('id', solveId);
   };
 
   const onDelete = async (solveId: number) => {
@@ -38,7 +59,7 @@ export function SessionContent({ solves }: { solves: Solve[] }) {
   };
 
   return (
-    <div className="flex flex-col flex-1">
+    <div className="flex flex-col flex-1 min-h-0">
       <div className="grid grid-cols-2 gap-2 px-4 mb-4">
         {Object.values(results).map(({ label, value }) => (
           <div key={label} className="flex flex-col rounded-lg border bg-muted p-2">
@@ -52,7 +73,7 @@ export function SessionContent({ solves }: { solves: Solve[] }) {
 
       <Separator className="w-full" />
 
-      <div className="flex-1">
+      <div className="flex-1 min-h-0 overflow-y-auto">
         {solves.length === 0 ? (
           <p className="text-center text-muted-foreground text-xs mt-8">
             No solves yet.
@@ -65,6 +86,7 @@ export function SessionContent({ solves }: { solves: Solve[] }) {
               <div
                 key={solve.id}
                 className="flex items-center p-2 rounded-lg transition-colors hover:bg-accent group"
+                role="listitem"
               >
                 <span className="font-mono text-muted-foreground text-xs mr-4">
                   {solves.length - idx}

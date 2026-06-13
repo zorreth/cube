@@ -8,9 +8,10 @@ import { saveSolve } from '@/lib/supabase/solves';
 import { cn } from '@/lib/utils';
 
 export function Timer() {
-  const [time, setTime] = useState('0.00');
+  const [time, setTime] = useState(0);
 
-  const { timerState, setTimerState } = useTimer();
+  const { timerState, setTimerState, setTimerHasSolve, isDnf, isPenalty, setIsDnf, setIsPenalty } =
+    useTimer();
   const { selectedPuzzle, scramble, regenerateScramble } = useSolve();
 
   const holdTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -27,7 +28,7 @@ export function Timer() {
       timerStartDateRef.current = Date.now();
       intervalRef.current = setInterval(() => {
         const elapsed = Date.now() - timerStartDateRef.current;
-        setTime(formatTime(elapsed));
+        setTime(elapsed);
       }, 10);
     } else {
       if (intervalRef.current) {
@@ -47,12 +48,14 @@ export function Timer() {
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.code !== 'Space' || e.repeat) return;
+      e.preventDefault();
 
       if (timerStateRef.current === 'running') {
         const elapsed = Date.now() - timerStartDateRef.current;
 
-        setTime(formatTime(elapsed));
+        setTime(elapsed);
         setTimerState('idle');
+        setTimerHasSolve(true);
         regenerateScramble();
 
         if (selectedPuzzle) saveSolve(selectedPuzzle.id, elapsed, scramble);
@@ -74,6 +77,9 @@ export function Timer() {
       }
 
       if (timerStateRef.current === 'set') {
+        setIsDnf(false);
+        setIsPenalty(false);
+        setTimerHasSolve(false);
         setTimerState('running');
       } else if (timerStateRef.current === 'ready') {
         setTimerState('idle');
@@ -88,7 +94,15 @@ export function Timer() {
       document.removeEventListener('keyup', onKeyUp);
       if (holdTimeoutRef.current) clearTimeout(holdTimeoutRef.current);
     };
-  }, [setTimerState, regenerateScramble, selectedPuzzle]);
+  }, [
+    setTimerState,
+    setTimerHasSolve,
+    regenerateScramble,
+    selectedPuzzle,
+    scramble,
+    setIsDnf,
+    setIsPenalty,
+  ]);
 
   return (
     <span
@@ -99,7 +113,7 @@ export function Timer() {
         timerState === 'running' && 'cursor-pointer',
       )}
     >
-      {time}
+      {isDnf ? 'DNF' : isPenalty ? `${formatTime(time + 2000)}+` : formatTime(time)}
     </span>
   );
 }
