@@ -6,9 +6,10 @@ import { createClient } from '@/lib/supabase/client';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '../ui/sheet';
 import { Button } from '../ui/button';
 import { BarChart2 } from 'lucide-react';
-import { SessionContent, Solve } from './session-content';
+import { SessionContent } from './session-content';
 import { Badge } from '../ui/badge';
 import { Skeleton } from '../ui/skeleton';
+import { Solve } from '@/lib/session-stats';
 
 export function SessionSidebar() {
   const { selectedPuzzle } = useSolve();
@@ -22,16 +23,16 @@ export function SessionSidebar() {
     const fetchSolves = () =>
       supabase
         .from('solves')
-        .select('id, created_at, time')
+        .select('id, created_at, time, is_dnf, is_penalty')
         .eq('puzzle_id', selectedPuzzle.id)
-        .order('created_at', { ascending: true })
+        .order('created_at', { ascending: false })
         .then(({ data }) => setSolves(data ?? []));
 
     fetchSolves();
 
     const channel = supabase
       .channel(`solves:${selectedPuzzle.id}`)
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'solves' }, fetchSolves)
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'solves' }, fetchSolves)
       .subscribe();
 
     return () => {
