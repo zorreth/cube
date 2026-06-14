@@ -2,7 +2,6 @@
 
 import {
   Sidebar,
-  SidebarHeader,
   SidebarFooter,
   SidebarMenu,
   SidebarMenuItem,
@@ -13,7 +12,6 @@ import {
   SidebarMenuButton,
   useSidebar,
 } from '../ui/sidebar';
-import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { PanelRight, Timer, TrendingUp, UserRound } from 'lucide-react';
@@ -35,17 +33,6 @@ export function AppSidebar() {
   return (
     <>
       <Sidebar>
-        <SidebarHeader>
-          <Image
-            src="/logo.svg"
-            alt="Antisune"
-            loading="eager"
-            className="w-32 h-auto"
-            width={140}
-            height={32}
-          />
-        </SidebarHeader>
-
         <SidebarContent>
           <SidebarGroup>
             <SidebarGroupLabel className="tracking-wider">PUZZLE</SidebarGroupLabel>

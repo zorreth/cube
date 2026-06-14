@@ -8,7 +8,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '../ui/dialog';
-import Image from 'next/image';
 
 const supabase = createClient();
 
@@ -59,17 +58,7 @@ export function SignInDialog() {
 
       <DialogContent showCloseButton={false}>
         <DialogHeader className="mb-2">
-          <Image
-            src="/logo.svg"
-            className="w-40 h-auto mx-auto mb-2"
-            alt="Antisune"
-            width={120}
-            height={48}
-          />
-
-          <DialogTitle className="text-center text-xl font-semibold">
-            Sign in to Antisune
-          </DialogTitle>
+          <DialogTitle className="text-center text-xl font-semibold">Sign in</DialogTitle>
 
           <DialogDescription className="text-center">
             Sync your sessions across devices, build your public profile, and track your progress.
