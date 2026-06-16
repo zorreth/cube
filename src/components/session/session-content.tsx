@@ -104,7 +104,9 @@ export function SessionContent({ solves }: { solves: Solve[] }) {
                   </span>
                 )}
 
-                {solve.time === results.best.value && <Badge>PB</Badge>}
+                {(solve.is_penalty ? solve.time + 2000 : solve.time) === results.best.value && (
+                  <Badge>PB</Badge>
+                )}
 
                 <div className="flex gap-1 items-center ml-auto">
                   <Button
