@@ -47,10 +47,10 @@ export function Timer() {
 
   useEffect(() => {
     const onKeyDown = async (e: KeyboardEvent) => {
-      if (e.code !== 'Space' || e.repeat) return;
-      e.preventDefault();
+      if (e.repeat) return;
 
       if (timerStateRef.current === 'running') {
+        e.preventDefault();
         const elapsed = Date.now() - timerStartDateRef.current;
 
         setTime(elapsed);
@@ -62,10 +62,13 @@ export function Timer() {
         return;
       }
 
-      setTimerState('ready');
-      holdTimeoutRef.current = setTimeout(() => {
-        setTimerState('set');
-      }, 500);
+      if (e.code === 'Space') {
+        e.preventDefault();
+        setTimerState('ready');
+        holdTimeoutRef.current = setTimeout(() => {
+          setTimerState('set');
+        }, 500);
+      }
     };
 
     const onKeyUp = (e: KeyboardEvent) => {
@@ -86,12 +89,12 @@ export function Timer() {
       }
     };
 
-    document.addEventListener('keydown', onKeyDown);
-    document.addEventListener('keyup', onKeyUp);
+    document.addEventListener('keydown', onKeyDown, true);
+    document.addEventListener('keyup', onKeyUp, true);
 
     return () => {
-      document.removeEventListener('keydown', onKeyDown);
-      document.removeEventListener('keyup', onKeyUp);
+      document.removeEventListener('keydown', onKeyDown, true);
+      document.removeEventListener('keyup', onKeyUp, true);
       if (holdTimeoutRef.current) clearTimeout(holdTimeoutRef.current);
     };
   }, [
