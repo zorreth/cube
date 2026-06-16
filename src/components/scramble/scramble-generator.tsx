@@ -31,6 +31,8 @@ export function ScrambleGenerator() {
         onClick={regenerateScramble}
         onPointerDown={(e) => e.stopPropagation()}
         onPointerUp={(e) => e.stopPropagation()}
+        tabIndex={-1}
+        onKeyDown={(e) => e.preventDefault()}
       >
         <Shuffle /> New scramble
       </Button>
