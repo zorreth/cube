@@ -16,7 +16,7 @@ export function Timer() {
 
   const holdTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  const timerStartDateRef = useRef<number>(0);
+  const timerStartDateRef = useRef(0);
   const timerStateRef = useRef(timerState);
 
   useEffect(() => {
@@ -46,7 +46,7 @@ export function Timer() {
   }, [timerState]);
 
   useEffect(() => {
-    const onKeyDown = (e: KeyboardEvent) => {
+    const onKeyDown = async (e: KeyboardEvent) => {
       if (e.code !== 'Space' || e.repeat) return;
       e.preventDefault();
 
@@ -58,7 +58,7 @@ export function Timer() {
         setTimerHasSolve(true);
         regenerateScramble();
 
-        if (selectedPuzzle) saveSolve(selectedPuzzle.id, elapsed, scramble);
+        saveSolve(selectedPuzzle.puzzleType, elapsed, scramble);
         return;
       }
 

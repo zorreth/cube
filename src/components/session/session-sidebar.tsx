@@ -24,14 +24,14 @@ export function SessionSidebar() {
       supabase
         .from('solves')
         .select('id, created_at, time, is_dnf, is_penalty')
-        .eq('puzzle_id', selectedPuzzle.id)
+        .eq('puzzle_type', selectedPuzzle.puzzleType)
         .order('created_at', { ascending: false })
         .then(({ data }) => setSolves(data ?? []));
 
     fetchSolves();
 
     const channel = supabase
-      .channel(`solves:${selectedPuzzle.id}`)
+      .channel(`solves:${selectedPuzzle.puzzleType}`)
       .on('postgres_changes', { event: '*', schema: 'public', table: 'solves' }, fetchSolves)
       .subscribe();
 

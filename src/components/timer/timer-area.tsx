@@ -27,7 +27,7 @@ export function TimerArea() {
       const elapsed = Date.now() - timerStartRef.current;
       setTimerState('idle');
       regenerateScramble();
-      if (selectedPuzzle) saveSolve(selectedPuzzle.id, elapsed, scramble);
+      saveSolve(selectedPuzzle.puzzleType, elapsed, scramble);
       return;
     }
 
