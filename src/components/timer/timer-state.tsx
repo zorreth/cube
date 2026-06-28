@@ -1,6 +1,5 @@
-'use client';
-
-import { type TimerState as TimerStateValue, useTimer } from '@/contexts/timer';
+import type { TimerState as TimerStateValue } from '@/contexts/timer/timer-context';
+import { useTimer } from '@/hooks/use-timer';
 import { cn } from '@/lib/utils';
 
 const messages: Record<TimerStateValue, string> = {

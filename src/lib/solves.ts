@@ -1,8 +1,10 @@
-import { createClient } from './client';
+import { supabase } from './supabase';
 
-export async function saveSolve(puzzleType: string, elapsed: number, scramble: string | null) {
-  const supabase = createClient();
-
+export async function saveSolve(
+  puzzleType: string,
+  elapsed: number,
+  scramble: string | null,
+) {
   const { data } = await supabase.auth.getUser();
   if (!data.user) return;
 

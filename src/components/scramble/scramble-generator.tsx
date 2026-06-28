@@ -1,7 +1,5 @@
-'use client';
-
-import { useSolve } from '@/contexts/solve';
-import { useTimer } from '@/contexts/timer';
+import { useSolve } from '@/hooks/use-solve';
+import { useTimer } from '@/hooks/use-timer';
 import { cn } from '@/lib/utils';
 import { useEffect } from 'react';
 import { Button } from '../ui/button';

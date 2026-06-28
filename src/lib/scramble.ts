@@ -1,7 +1,14 @@
 export const FACES = ['U', 'D', 'L', 'R', 'F', 'B'] as const;
 export const FACES_2X2 = ['U', 'R', 'F'] as const;
 export const MODIFIERS = ['', "'", '2'] as const;
-export const OPPOSITE: Record<string, string> = { U: 'D', D: 'U', L: 'R', R: 'L', F: 'B', B: 'F' };
+export const OPPOSITE: Record<string, string> = {
+  U: 'D',
+  D: 'U',
+  L: 'R',
+  R: 'L',
+  F: 'B',
+  B: 'F',
+};
 
 function buildScramble(faces: readonly string[], length: number): string {
   const moves: string[] = [];

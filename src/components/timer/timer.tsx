@@ -1,21 +1,26 @@
-'use client';
-
 import { useEffect, useRef, useState } from 'react';
-import { useTimer } from '@/contexts/timer';
+import { useTimer } from '@/hooks/use-timer';
 import { formatTime } from '@/lib/session-stats';
-import { useSolve } from '@/contexts/solve';
-import { saveSolve } from '@/lib/supabase/solves';
+import { useSolve } from '@/hooks/use-solve';
+import { saveSolve } from '@/lib/solves';
 import { cn } from '@/lib/utils';
 
 export function Timer() {
   const [time, setTime] = useState(0);
 
-  const { timerState, setTimerState, setTimerHasSolve, isDnf, isPenalty, setIsDnf, setIsPenalty } =
-    useTimer();
+  const {
+    timerState,
+    setTimerState,
+    setTimerHasSolve,
+    isDnf,
+    isPenalty,
+    setIsDnf,
+    setIsPenalty,
+  } = useTimer();
   const { selectedPuzzle, scramble, regenerateScramble } = useSolve();
 
-  const holdTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const holdTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const timerStartDateRef = useRef(0);
   const timerStateRef = useRef(timerState);
 
@@ -116,7 +121,11 @@ export function Timer() {
         timerState === 'running' && 'cursor-pointer',
       )}
     >
-      {isDnf ? 'DNF' : isPenalty ? `${formatTime(time + 2000)}+` : formatTime(time)}
+      {isDnf
+        ? 'DNF'
+        : isPenalty
+          ? `${formatTime(time + 2000)}+`
+          : formatTime(time)}
     </span>
   );
 }

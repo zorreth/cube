@@ -1,19 +1,17 @@
-'use client';
-
-import { useTimer } from '@/contexts/timer';
+import { useTimer } from '@/hooks/use-timer';
 import { cn } from '@/lib/utils';
 import { useEffect, useRef } from 'react';
 import { ScrambleGenerator } from '../scramble/scramble-generator';
 import { Timer } from './timer';
 import { TimerState } from './timer-state';
-import { useSolve } from '@/contexts/solve';
-import { saveSolve } from '@/lib/supabase/solves';
+import { useSolve } from '@/hooks/use-solve';
+import { saveSolve } from '@/lib/solves';
 
 export function TimerArea() {
   const { timerState, setTimerState } = useTimer();
   const { selectedPuzzle, scramble, regenerateScramble } = useSolve();
 
-  const holdTimeout = useRef<NodeJS.Timeout | null>(null);
+  const holdTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const timerStateRef = useRef(timerState);
   const timerStartRef = useRef<number>(0);
 

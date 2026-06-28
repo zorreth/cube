@@ -1,5 +1,3 @@
-'use client';
-
 import {
   Sidebar,
   SidebarFooter,
@@ -12,22 +10,20 @@ import {
   SidebarMenuButton,
   useSidebar,
 } from '../ui/sidebar';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { PanelRight, Timer, TrendingUp, UserRound } from 'lucide-react';
+import { Link, useLocation } from 'react-router';
+import { PanelRight, Timer } from 'lucide-react';
 import { PuzzleSelect } from './puzzle-select';
 import { SidebarUser } from './sidebar-user';
 import { Button } from '../ui/button';
 
 const navItems = [
   { href: '/', label: 'Timer', icon: Timer },
-  { href: '/progress', label: 'Progress', icon: TrendingUp },
-  { href: '/profile', label: 'Profile', icon: UserRound },
+  // { href: '/progress', label: 'Progress', icon: TrendingUp },
+  // { href: '/profile', label: 'Profile', icon: UserRound },
 ];
 
 export function AppSidebar() {
-  const pathname = usePathname();
-
+  const { pathname } = useLocation();
   const { toggleSidebar } = useSidebar();
 
   return (
@@ -35,7 +31,9 @@ export function AppSidebar() {
       <Sidebar>
         <SidebarContent>
           <SidebarGroup>
-            <SidebarGroupLabel className="tracking-wider">PUZZLE</SidebarGroupLabel>
+            <SidebarGroupLabel className="tracking-wider">
+              PUZZLE
+            </SidebarGroupLabel>
             <SidebarGroupContent>
               <PuzzleSelect />
             </SidebarGroupContent>
@@ -45,8 +43,12 @@ export function AppSidebar() {
             <SidebarMenu className="gap-2">
               {navItems.map(({ href, label, icon: Icon }) => (
                 <SidebarMenuItem key={href}>
-                  <SidebarMenuButton asChild isActive={pathname === href} size="lg">
-                    <Link href={href}>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={pathname === href}
+                    size="lg"
+                  >
+                    <Link to={href}>
                       <Icon />
                       {label}
                     </Link>

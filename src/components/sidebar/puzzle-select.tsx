@@ -1,6 +1,5 @@
-'use client';
-
-import { puzzles, useSolve } from '@/contexts/solve';
+import { puzzles } from '@/lib/puzzles';
+import { useSolve } from '@/hooks/use-solve';
 import {
   Select,
   SelectContent,
@@ -20,7 +19,10 @@ export function PuzzleSelect() {
   };
 
   return (
-    <Select value={`puzzle-${selectedPuzzle.puzzleType}`} onValueChange={handleValueChange}>
+    <Select
+      value={`puzzle-${selectedPuzzle.puzzleType}`}
+      onValueChange={handleValueChange}
+    >
       <SelectTrigger className="w-full">
         <SelectValue placeholder="Select puzzle" />
       </SelectTrigger>

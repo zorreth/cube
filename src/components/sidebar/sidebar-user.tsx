@@ -1,9 +1,6 @@
-'use client';
-
-import Image from 'next/image';
 import { LogOut } from 'lucide-react';
 import { SignInDialog } from '../auth/sign-in-dialog';
-import { createClient } from '@/lib/supabase/client';
+import { supabase } from '@/lib/supabase';
 import { Button } from '../ui/button';
 import { Skeleton } from '../ui/skeleton';
 import {
@@ -17,15 +14,13 @@ import {
   DialogTrigger,
 } from '../ui/dialog';
 import { useEffect, useState } from 'react';
-import { User } from '@supabase/supabase-js';
+import type { User } from '@supabase/supabase-js';
 
 export function SidebarUser() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const supabase = createClient();
-
     supabase.auth.getUser().then(({ data }) => {
       setUser(data.user);
       setLoading(false);
@@ -41,7 +36,6 @@ export function SidebarUser() {
   }, []);
 
   const signout = async () => {
-    const supabase = createClient();
     await supabase.auth.signOut();
   };
 
@@ -61,7 +55,7 @@ export function SidebarUser() {
   return (
     <div className="flex items-center gap-3 px-2 py-1">
       {user.user_metadata.avatar_url && (
-        <Image
+        <img
           src={user.user_metadata.avatar_url}
           alt={user.user_metadata.full_name ?? 'User'}
           width={32}

@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/client';
+import { supabase } from '@/lib/supabase';
 import { Button } from '../ui/button';
 import {
   Dialog,
@@ -8,8 +8,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '../ui/dialog';
-
-const supabase = createClient();
 
 function DiscordIcon() {
   return (
@@ -26,7 +24,12 @@ function DiscordIcon() {
 
 function GoogleIcon() {
   return (
-    <svg role="img" viewBox="0 0 24 24" className="size-5" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      role="img"
+      viewBox="0 0 24 24"
+      className="size-5"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <path
         fill="#4285F4"
         d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -58,10 +61,13 @@ export function SignInDialog() {
 
       <DialogContent showCloseButton={false}>
         <DialogHeader className="mb-2">
-          <DialogTitle className="text-center text-xl font-semibold">Sign in</DialogTitle>
+          <DialogTitle className="text-center text-xl font-semibold">
+            Sign in
+          </DialogTitle>
 
           <DialogDescription className="text-center">
-            Sync your sessions across devices, build your public profile, and track your progress.
+            Sync your sessions across devices, build your public profile, and
+            track your progress.
           </DialogDescription>
         </DialogHeader>
 
