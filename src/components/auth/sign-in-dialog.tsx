@@ -78,7 +78,7 @@ export function SignInDialog() {
             onClick={async () =>
               await supabase.auth.signInWithOAuth({
                 provider: 'discord',
-                options: { redirectTo: `${location.origin}/auth/callback` },
+                options: { redirectTo: location.origin },
               })
             }
           >
@@ -92,7 +92,7 @@ export function SignInDialog() {
             onClick={async () =>
               await supabase.auth.signInWithOAuth({
                 provider: 'google',
-                options: { redirectTo: `${location.origin}/auth/callback` },
+                options: { redirectTo: location.origin },
               })
             }
           >
