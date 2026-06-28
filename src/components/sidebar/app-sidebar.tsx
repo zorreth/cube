@@ -9,12 +9,12 @@ import {
   SidebarGroupContent,
   SidebarMenuButton,
   useSidebar,
-} from './ui/sidebar';
+} from '../ui/sidebar';
 import { Link, useLocation } from 'react-router';
 import { PanelRight, Timer } from 'lucide-react';
 import { PuzzleSelect } from './puzzle-select';
 import { SidebarUser } from './sidebar-user';
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 
 const navItems = [
   { href: '/', label: 'Timer', icon: Timer },

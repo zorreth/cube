@@ -1,8 +1,8 @@
 import { LogOut } from 'lucide-react';
-import { SignInDialog } from './sign-in-dialog';
+import { SignInDialog } from '../auth/sign-in-dialog';
 import { supabase } from '@/lib/supabase';
-import { Button } from './ui/button';
-import { Skeleton } from './ui/skeleton';
+import { Button } from '../ui/button';
+import { Skeleton } from '../ui/skeleton';
 import {
   Dialog,
   DialogClose,
@@ -12,7 +12,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from './ui/dialog';
+} from '../ui/dialog';
 import { useEffect, useState } from 'react';
 import type { User } from '@supabase/supabase-js';
 

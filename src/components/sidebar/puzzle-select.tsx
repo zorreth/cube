@@ -7,7 +7,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from './ui/select';
+} from '../ui/select';
 
 export function PuzzleSelect() {
   const { selectedPuzzle, setSelectedPuzzle } = useSolve();
