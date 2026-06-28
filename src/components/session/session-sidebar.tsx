@@ -1,7 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useSolve } from '@/hooks/use-solve';
 import { supabase } from '@/lib/supabase';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '../ui/sheet';
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '../ui/sheet';
 import { Button } from '../ui/button';
 import { BarChart2 } from 'lucide-react';
 import { SessionContent } from './session-content';
@@ -28,7 +34,11 @@ export function SessionSidebar() {
 
     const channel = supabase
       .channel(`solves:${selectedPuzzle.puzzleType}`)
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'solves' }, fetchSolves)
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'solves' },
+        fetchSolves,
+      )
       .subscribe();
 
     return () => {
@@ -43,7 +53,10 @@ export function SessionSidebar() {
         <div className="flex justify-between items-center p-4">
           <span className="font-bold">Session</span>
           {selectedPuzzle ? (
-            <Badge className="text-white" style={{ backgroundColor: selectedPuzzle.color }}>
+            <Badge
+              className="text-white"
+              style={{ backgroundColor: selectedPuzzle.color }}
+            >
               {selectedPuzzle.name}
             </Badge>
           ) : (
@@ -71,7 +84,10 @@ export function SessionSidebar() {
             <SheetTitle className="flex gap-2 items-center">
               Session
               {selectedPuzzle ? (
-                <Badge className="text-white" style={{ backgroundColor: selectedPuzzle.color }}>
+                <Badge
+                  className="text-white"
+                  style={{ backgroundColor: selectedPuzzle.color }}
+                >
                   {selectedPuzzle.name}
                 </Badge>
               ) : (

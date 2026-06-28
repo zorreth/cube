@@ -8,8 +8,15 @@ import { cn } from '@/lib/utils';
 export function Timer() {
   const [time, setTime] = useState(0);
 
-  const { timerState, setTimerState, setTimerHasSolve, isDnf, isPenalty, setIsDnf, setIsPenalty } =
-    useTimer();
+  const {
+    timerState,
+    setTimerState,
+    setTimerHasSolve,
+    isDnf,
+    isPenalty,
+    setIsDnf,
+    setIsPenalty,
+  } = useTimer();
   const { selectedPuzzle, scramble, regenerateScramble } = useSolve();
 
   const holdTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -114,7 +121,11 @@ export function Timer() {
         timerState === 'running' && 'cursor-pointer',
       )}
     >
-      {isDnf ? 'DNF' : isPenalty ? `${formatTime(time + 2000)}+` : formatTime(time)}
+      {isDnf
+        ? 'DNF'
+        : isPenalty
+          ? `${formatTime(time + 2000)}+`
+          : formatTime(time)}
     </span>
   );
 }

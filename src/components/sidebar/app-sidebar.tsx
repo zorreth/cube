@@ -31,7 +31,9 @@ export function AppSidebar() {
       <Sidebar>
         <SidebarContent>
           <SidebarGroup>
-            <SidebarGroupLabel className="tracking-wider">PUZZLE</SidebarGroupLabel>
+            <SidebarGroupLabel className="tracking-wider">
+              PUZZLE
+            </SidebarGroupLabel>
             <SidebarGroupContent>
               <PuzzleSelect />
             </SidebarGroupContent>
@@ -41,7 +43,11 @@ export function AppSidebar() {
             <SidebarMenu className="gap-2">
               {navItems.map(({ href, label, icon: Icon }) => (
                 <SidebarMenuItem key={href}>
-                  <SidebarMenuButton asChild isActive={pathname === href} size="lg">
+                  <SidebarMenuButton
+                    asChild
+                    isActive={pathname === href}
+                    size="lg"
+                  >
                     <Link to={href}>
                       <Icon />
                       {label}
