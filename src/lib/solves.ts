@@ -1,7 +1,7 @@
 import { supabase } from './supabase';
 
 export async function saveSolve(
-  puzzleType: string,
+  puzzle_id: number,
   elapsed: number,
   scramble: string | null,
 ) {
@@ -10,7 +10,7 @@ export async function saveSolve(
 
   await supabase.from('solves').insert({
     user_id: data.user.id,
-    puzzle_type: puzzleType,
+    puzzle_id,
     time: elapsed,
     scramble,
   });

@@ -4,7 +4,7 @@ export type Puzzle = {
   id: number;
   name: string;
   color: string;
-  scramble_type: string;
+  scramble_type: string | null;
   user_id: number | null;
 };
 

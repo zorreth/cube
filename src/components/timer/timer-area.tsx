@@ -13,7 +13,7 @@ export function TimerArea() {
 
   const holdTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const timerStateRef = useRef(timerState);
-  const timerStartRef = useRef<number>(0);
+  const timerStartRef = useRef(0);
 
   useEffect(() => {
     timerStateRef.current = timerState;
@@ -25,8 +25,7 @@ export function TimerArea() {
       const elapsed = Date.now() - timerStartRef.current;
       setTimerState('idle');
       regenerateScramble();
-      if (selectedPuzzle)
-        saveSolve(selectedPuzzle.scramble_type, elapsed, scramble);
+      if (selectedPuzzle) saveSolve(selectedPuzzle.id, elapsed, scramble);
       return;
     }
 
@@ -58,7 +57,7 @@ export function TimerArea() {
       onPointerDown={onPointerDown}
       onPointerUp={onPointerUp}
     >
-      <ScrambleGenerator />
+      {selectedPuzzle?.scramble_type && <ScrambleGenerator />}
       <Timer />
       <TimerState />
     </div>
