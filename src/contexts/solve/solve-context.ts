@@ -5,7 +5,7 @@ export type Puzzle = {
   name: string;
   color: string;
   scramble_type: string | null;
-  user_id: number | null;
+  user_id: string | null;
 };
 
 export type NewPuzzle = {

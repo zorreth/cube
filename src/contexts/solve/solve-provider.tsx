@@ -13,11 +13,16 @@ export function SolveProvider({ children }: { children: React.ReactNode }) {
     const fetchPuzzles = async () => {
       const { data: authData } = await supabase.auth.getUser();
 
+      const userId = authData.user?.id;
+      const filter = userId
+        ? `user_id.is.null,user_id.eq.${userId}`
+        : 'user_id.is.null';
+
       const { data } = await supabase
         .from('puzzles')
         .select('id, name, color, scramble_type, user_id')
         .order('created_at')
-        .or(`user_id.is.null,user_id.eq.${authData.user?.id}`);
+        .or(filter);
 
       const fetched = data ?? [];
       setPuzzles(fetched);
