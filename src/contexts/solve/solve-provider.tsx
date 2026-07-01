@@ -16,6 +16,7 @@ export function SolveProvider({ children }: { children: React.ReactNode }) {
       const { data } = await supabase
         .from('puzzles')
         .select('id, name, color, scramble_type, user_id')
+        .order('created_at')
         .or(`user_id.is.null,user_id.eq.${authData.user?.id}`);
 
       const fetched = data ?? [];
