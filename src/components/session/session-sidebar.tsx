@@ -11,7 +11,6 @@ import {
 import { Button } from '../ui/button';
 import { BarChart2 } from 'lucide-react';
 import { SessionContent } from './session-content';
-import { Badge } from '../ui/badge';
 import { Skeleton } from '../ui/skeleton';
 import type { Solve } from '@/lib/session-stats';
 
@@ -51,16 +50,10 @@ export function SessionSidebar() {
       {/* Desktop sidebar */}
       <div className="hidden md:flex h-svh w-80 flex-col border-l bg-sidebar text-sidebar-foreground shrink-0">
         <div className="flex justify-between items-center p-4">
-          <span className="font-bold">Puzzle</span>
           {selectedPuzzle ? (
-            <Badge
-              className="text-white"
-              style={{ backgroundColor: selectedPuzzle.color }}
-            >
-              {selectedPuzzle.name}
-            </Badge>
+            <span className="font-semibold mx-auto">{selectedPuzzle.name}</span>
           ) : (
-            <Skeleton className="h-5 w-12 rounded-full" />
+            <Skeleton className="h-6 w-24 rounded-full mx-auto" />
           )}
         </div>
 
@@ -81,15 +74,9 @@ export function SessionSidebar() {
         </SheetTrigger>
         <SheetContent aria-describedby={undefined}>
           <SheetHeader>
-            <SheetTitle className="flex gap-2 items-center">
-              Puzzle
+            <SheetTitle>
               {selectedPuzzle ? (
-                <Badge
-                  className="text-white"
-                  style={{ backgroundColor: selectedPuzzle.color }}
-                >
-                  {selectedPuzzle.name}
-                </Badge>
+                <span className="font-bold">{selectedPuzzle.name}</span>
               ) : (
                 <Skeleton className="h-5 w-12 rounded-full" />
               )}

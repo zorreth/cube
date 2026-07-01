@@ -51,7 +51,7 @@ export function TimerArea() {
   return (
     <div
       className={cn(
-        'relative flex-1 flex flex-col items-center justify-between p-8 select-none',
+        'relative flex-1 flex flex-col items-center p-8 select-none',
         timerState === 'running' && 'cursor-pointer',
       )}
       onPointerDown={onPointerDown}

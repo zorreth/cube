@@ -34,7 +34,7 @@ export function AppSidebar() {
             <SidebarGroupLabel className="tracking-wider">
               PUZZLE
             </SidebarGroupLabel>
-            <SidebarGroupContent>
+            <SidebarGroupContent className="flex flex-col gap-2">
               <PuzzleSelect />
             </SidebarGroupContent>
           </SidebarGroup>

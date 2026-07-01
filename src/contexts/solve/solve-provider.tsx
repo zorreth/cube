@@ -1,6 +1,6 @@
 import { generateScramble } from '@/lib/scramble';
 import { useCallback, useEffect, useState } from 'react';
-import { SolveContext, type Puzzle } from './solve-context';
+import { SolveContext, type NewPuzzle, type Puzzle } from './solve-context';
 import { supabase } from '@/lib/supabase';
 
 export function SolveProvider({ children }: { children: React.ReactNode }) {
@@ -36,6 +36,18 @@ export function SolveProvider({ children }: { children: React.ReactNode }) {
     }
   }, [selectedPuzzle]);
 
+  const addPuzzle = useCallback(async (puzzle: NewPuzzle) => {
+    const { data: authData } = await supabase.auth.getUser();
+    if (!authData.user) return;
+
+    const { data } = await supabase
+      .from('puzzles')
+      .insert({ ...puzzle, user_id: authData.user?.id })
+      .select('id, name, color, scramble_type, user_id')
+      .single();
+    if (data) setPuzzles((prev) => [...prev, data]);
+  }, []);
+
   return (
     <SolveContext
       value={{
@@ -45,6 +57,7 @@ export function SolveProvider({ children }: { children: React.ReactNode }) {
         setSelectedPuzzle,
         scramble,
         regenerateScramble,
+        addPuzzle,
       }}
     >
       {children}

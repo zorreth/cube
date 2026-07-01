@@ -8,6 +8,13 @@ export type Puzzle = {
   user_id: number | null;
 };
 
+export type NewPuzzle = {
+  name: string;
+  slug: string;
+  color: string;
+  scramble_type: string | null;
+};
+
 export type SolveContextValue = {
   puzzles: Puzzle[];
   puzzlesLoading: boolean;
@@ -15,6 +22,7 @@ export type SolveContextValue = {
   setSelectedPuzzle: (puzzle: Puzzle) => void;
   scramble: string | null;
   regenerateScramble: () => void;
+  addPuzzle: (puzzle: NewPuzzle) => Promise<void>;
 };
 
 export const SolveContext = createContext<SolveContextValue>({
@@ -24,4 +32,5 @@ export const SolveContext = createContext<SolveContextValue>({
   setSelectedPuzzle: () => {},
   scramble: null,
   regenerateScramble: () => {},
+  addPuzzle: async () => {},
 });

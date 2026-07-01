@@ -54,6 +54,13 @@ export function Timer() {
     const onKeyDown = async (e: KeyboardEvent) => {
       if (e.repeat) return;
 
+      const activeEl = document.activeElement as HTMLElement | null;
+      if (
+        activeEl?.closest('[role="dialog"]') ||
+        ['INPUT', 'TEXTAREA', 'SELECT'].includes(activeEl?.tagName ?? '')
+      )
+        return;
+
       if (timerStateRef.current === 'running') {
         e.preventDefault();
         const elapsed = Date.now() - timerStartDateRef.current;
@@ -78,6 +85,13 @@ export function Timer() {
 
     const onKeyUp = (e: KeyboardEvent) => {
       if (e.code !== 'Space') return;
+
+      const activeEl = document.activeElement as HTMLElement | null;
+      if (
+        activeEl?.closest('[role="dialog"]') ||
+        ['INPUT', 'TEXTAREA', 'SELECT'].includes(activeEl?.tagName ?? '')
+      )
+        return;
 
       if (holdTimeoutRef.current) {
         clearTimeout(holdTimeoutRef.current);

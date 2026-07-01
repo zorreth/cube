@@ -10,6 +10,15 @@ export const OPPOSITE: Record<string, string> = {
   B: 'F',
 };
 
+export const SCRAMBLE_TYPES = [
+  '3x3',
+  '2x2',
+  '4x4',
+  '5x5',
+  '6x6',
+  '7x7',
+] as const;
+
 // prettier-ignore
 const MOVES_4X4 = ['U', 'Uw', 'D', 'Dw', 'L', 'Lw', 'R', 'Rw', 'F', 'Fw', 'B', 'Bw'] as const;
 // prettier-ignore
