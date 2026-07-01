@@ -1,15 +1,26 @@
 import { createContext } from 'react';
-import { puzzles, type Puzzle } from '@/lib/puzzles';
+
+export type Puzzle = {
+  id: number;
+  name: string;
+  color: string;
+  scramble_type: string;
+  user_id: number | null;
+};
 
 export type SolveContextValue = {
-  selectedPuzzle: Puzzle;
+  puzzles: Puzzle[];
+  puzzlesLoading: boolean;
+  selectedPuzzle: Puzzle | null;
   setSelectedPuzzle: (puzzle: Puzzle) => void;
   scramble: string | null;
   regenerateScramble: () => void;
 };
 
 export const SolveContext = createContext<SolveContextValue>({
-  selectedPuzzle: puzzles[0],
+  puzzles: [],
+  puzzlesLoading: true,
+  selectedPuzzle: null,
   setSelectedPuzzle: () => {},
   scramble: null,
   regenerateScramble: () => {},

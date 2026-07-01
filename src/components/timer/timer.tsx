@@ -63,7 +63,8 @@ export function Timer() {
         setTimerHasSolve(true);
         regenerateScramble();
 
-        saveSolve(selectedPuzzle.puzzleType, elapsed, scramble);
+        if (selectedPuzzle)
+          saveSolve(selectedPuzzle.scramble_type, elapsed, scramble);
         return;
       }
 

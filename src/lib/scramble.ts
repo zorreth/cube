@@ -31,10 +31,13 @@ function buildScramble(faces: readonly string[], length: number): string {
   return moves.join(' ');
 }
 
-export function generate3x3Scramble(length = 20): string {
-  return buildScramble(FACES, length);
-}
-
-export function generate2x2Scramble(length = 9): string {
-  return buildScramble(FACES_2X2, length);
+export function generateScramble(puzzleType: string): string | null {
+  switch (puzzleType) {
+    case '3x3':
+      return buildScramble(FACES, 20);
+    case '2x2':
+      return buildScramble(FACES_2X2, 9);
+    default:
+      return null;
+  }
 }

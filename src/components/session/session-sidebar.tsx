@@ -26,14 +26,14 @@ export function SessionSidebar() {
       supabase
         .from('solves')
         .select('id, created_at, time, is_dnf, is_penalty')
-        .eq('puzzle_type', selectedPuzzle.puzzleType)
+        .eq('puzzle_id', selectedPuzzle.id)
         .order('created_at', { ascending: false })
         .then(({ data }) => setSolves(data ?? []));
 
     fetchSolves();
 
     const channel = supabase
-      .channel(`solves:${selectedPuzzle.puzzleType}`)
+      .channel(`solves:${selectedPuzzle.id}`)
       .on(
         'postgres_changes',
         { event: '*', schema: 'public', table: 'solves' },
@@ -51,7 +51,7 @@ export function SessionSidebar() {
       {/* Desktop sidebar */}
       <div className="hidden md:flex h-svh w-80 flex-col border-l bg-sidebar text-sidebar-foreground shrink-0">
         <div className="flex justify-between items-center p-4">
-          <span className="font-bold">Session</span>
+          <span className="font-bold">Puzzle</span>
           {selectedPuzzle ? (
             <Badge
               className="text-white"
@@ -82,7 +82,7 @@ export function SessionSidebar() {
         <SheetContent aria-describedby={undefined}>
           <SheetHeader>
             <SheetTitle className="flex gap-2 items-center">
-              Session
+              Puzzle
               {selectedPuzzle ? (
                 <Badge
                   className="text-white"
