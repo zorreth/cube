@@ -4,16 +4,15 @@ Speedcubing timer, social platform and progress tracker
 
 ## Stack
 
-- **Framework:** [React](https://react.dev) + [Vite](https://vite.dev)
-- **UI:** [shadcn-ui](https://ui.shadcn.com/)
-- **Backend:** [Supabase](https://supabase.com)
-- **Package manager:** [Bun](https://bun.com)
+- **Frontend:** [Next.js](https://nextjs.org)
+- **Backend:** [Nest](https://nestjs.com)
+- **Package manager:** [pnpm](https://pnpm.io)
 
 ## How to run
 
-Install dependencies and start development server using Bun:
+Install dependencies and start development servers using pnpm:
 
 ```sh
-$ bun i
-$ bun run dev
+$ pnpm i
+$ pnpm dev
 ```
