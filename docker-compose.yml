@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:alpine
+    restart: always
+    shm_size: 128mb
+    ports:
+      - 127.0.0.1:5432:5432
+    volumes:
+      - pgdata:/var/lib/posgresql
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: app
+
+volumes:
+  pgdata:
