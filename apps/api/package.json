@@ -7,14 +7,15 @@
     "dev": "bun --watch ./src/index.ts"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "drizzle-kit": "^1.0.0-rc.4"
   },
   "peerDependencies": {
-    "typescript": "^5"
+    "typescript": "^5.9.2"
   },
   "dependencies": {
     "@fastify/oauth2": "^8.2.0",
-    "fastify": "^5.10.0",
-    "prisma": "^7.8.0"
+    "drizzle-orm": "^1.0.0-rc.4",
+    "fastify": "^5.10.0"
   }
 }
