@@ -19,6 +19,20 @@ fastify.register(fastifyOauth2, {
   callbackUri: process.env.BACKEND_URL! + '/api/auth/discord/callback',
 });
 
+fastify.register(fastifyOauth2, {
+  name: 'googleOauth2',
+  credentials: {
+    client: {
+      id: process.env.GOOGLE_CLIENT_ID!,
+      secret: process.env.GOOGLE_CLIENT_SECRET!,
+    },
+    auth: fastifyOauth2.GOOGLE_CONFIGURATION,
+  },
+  scope: ['profile', 'email'],
+  startRedirectPath: '/api/auth/google',
+  callbackUri: process.env.BACKEND_URL! + '/api/auth/google/callback',
+});
+
 fastify.register(fastifyJwt, {
   secret: process.env.JWT_SECRET!,
   sign: {
