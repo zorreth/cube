@@ -70,7 +70,7 @@ export async function authRoutes(fastify: FastifyInstance) {
     return saveUser(fastify, reply, {
       discordId: discordUser.id,
       username: discordUser.username,
-      avatar: discordUser.avatar,
+      avatar: `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png`,
       email: discordUser.email,
     });
   });
