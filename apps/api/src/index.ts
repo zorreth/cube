@@ -3,9 +3,10 @@ import fastifyOauth2 from '@fastify/oauth2';
 import fastifySwagger from '@fastify/swagger';
 import fastifySwaggerUi from '@fastify/swagger-ui';
 import fastifyJwt from '@fastify/jwt';
-import { authRoutes } from './routes/auth';
 import { jwtPlugin } from './middleware/jwt';
+import { authRoutes } from './routes/auth';
 import { usersRoutes } from './routes/users';
+import { puzzlesRoutes } from './routes/puzzles';
 
 const fastify = Fastify({ logger: true });
 
@@ -77,6 +78,7 @@ fastify.register(jwtPlugin);
 
 fastify.register(authRoutes, { prefix: '/api/auth' });
 fastify.register(usersRoutes, { prefix: '/api/users' });
+fastify.register(puzzlesRoutes, { prefix: '/api/puzzles' });
 
 fastify.listen({ port: 3000 }, (err) => {
   if (err) {

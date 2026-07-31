@@ -3,11 +3,11 @@ import { eq } from 'drizzle-orm';
 import { db } from '../db';
 import { usersTable } from '../db/schema';
 
-export function usersRoutes(fastify: FastifyInstance) {
+export async function usersRoutes(fastify: FastifyInstance) {
   fastify.get(
     '/me',
     { schema: { tags: ['users'] }, onRequest: [fastify.authenticate] },
-    async (req, reply) => {
+    async (req) => {
       const userId = req.user.sub;
 
       const [user] = await db
@@ -26,7 +26,7 @@ export function usersRoutes(fastify: FastifyInstance) {
         throw new Error('User not found');
       }
 
-      return reply.send(user);
+      return user;
     },
   );
 }
