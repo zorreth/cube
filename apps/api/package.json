@@ -14,6 +14,7 @@
     "typescript": "^5.9.2"
   },
   "dependencies": {
+    "@fastify/jwt": "^10.2.1",
     "@fastify/oauth2": "^8.2.0",
     "drizzle-orm": "^1.0.0-rc.4",
     "fastify": "^5.10.0"

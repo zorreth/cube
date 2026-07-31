@@ -25,7 +25,7 @@ export async function authRoutes(fastify: FastifyInstance) {
 
     const discordUser = (await discordResponse.json()) as DiscordUser;
 
-    await db
+    const [user] = await db
       .insert(usersTable)
       .values({
         discordId: discordUser.id,
@@ -40,8 +40,24 @@ export async function authRoutes(fastify: FastifyInstance) {
           username: discordUser.username,
           avatar: discordUser.avatar,
         },
-      });
+      })
+      .returning({ id: usersTable.id });
 
-    return reply.redirect(process.env.BASE_URL!);
+    if (!user) {
+      throw new Error('Failed to create user');
+    }
+
+    const jwtToken = fastify.jwt.sign({
+      sub: user.id,
+    });
+
+    return reply
+      .setCookie('token', jwtToken, {
+        path: '/',
+        httpOnly: true,
+        sameSite: 'lax',
+        maxAge: 60 * 60 * 24 * 7,
+      })
+      .redirect(process.env.FRONTEND_URL!);
   });
 }

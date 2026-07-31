@@ -1,5 +1,6 @@
 import Fastify from 'fastify';
 import fastifyOauth2 from '@fastify/oauth2';
+import fastifyJwt from '@fastify/jwt';
 import { authRoutes } from './routes/auth';
 
 const fastify = Fastify({ logger: true });
@@ -15,7 +16,14 @@ fastify.register(fastifyOauth2, {
   },
   scope: ['identify', 'email'],
   startRedirectPath: '/api/auth/discord',
-  callbackUri: process.env.DISCORD_CALLBACK_URL!,
+  callbackUri: process.env.BACKEND_URL! + '/api/auth/discord/callback',
+});
+
+fastify.register(fastifyJwt, {
+  secret: process.env.JWT_SECRET!,
+  sign: {
+    expiresIn: '1d',
+  },
 });
 
 fastify.register(authRoutes, { prefix: '/api/auth' });
