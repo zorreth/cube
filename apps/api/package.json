@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "@types/bun": "latest",
-    "drizzle-kit": "^1.0.0-rc.4"
+    "drizzle-kit": "^1.0.0-rc.4-ca0f029"
   },
   "peerDependencies": {
     "typescript": "^5.9.2"
@@ -16,7 +16,7 @@
   "dependencies": {
     "@fastify/jwt": "^10.2.1",
     "@fastify/oauth2": "^8.2.0",
-    "drizzle-orm": "^1.0.0-rc.4",
-    "fastify": "^5.10.0"
+    "drizzle-orm": "^1.0.0-rc.4-de6c356",
+    "fastify": "^5.11.0"
   }
 }
