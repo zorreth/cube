@@ -52,7 +52,7 @@ async function saveUser(
 }
 
 export async function authRoutes(fastify: FastifyInstance) {
-  fastify.get('/discord/callback', async (req, reply) => {
+  fastify.get('/discord/callback', { schema: { tags: ['auth'] } }, async (req, reply) => {
     const { token } = await fastify.discordOauth2.getAccessTokenFromAuthorizationCodeFlow(req);
 
     const discordResponse = await fetch('https://discord.com/api/users/@me', {
@@ -75,7 +75,7 @@ export async function authRoutes(fastify: FastifyInstance) {
     });
   });
 
-  fastify.get('/google/callback', async (req, reply) => {
+  fastify.get('/google/callback', { schema: { tags: ['auth'] } }, async (req, reply) => {
     const { token } = await fastify.googleOauth2.getAccessTokenFromAuthorizationCodeFlow(req);
 
     const googleResponse = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
@@ -98,7 +98,7 @@ export async function authRoutes(fastify: FastifyInstance) {
     });
   });
 
-  fastify.get('/logout', async (_, reply) => {
+  fastify.get('/logout', { schema: { tags: ['auth'] } }, async (_, reply) => {
     return reply.clearCookie('token', { path: '/' }).send({ success: true });
   });
 }
