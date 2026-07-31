@@ -46,7 +46,7 @@ async function saveUser(
       path: '/',
       httpOnly: true,
       sameSite: 'lax',
-      maxAge: 60 * 60 * 24 * 7,
+      maxAge: 60 * 60 * 24,
     })
     .redirect(process.env.FRONTEND_URL!);
 }
