@@ -6,7 +6,8 @@ export const usersTable = pgTable('users', {
   discordId: varchar('discord_id').unique(),
   googleId: varchar('google_id').unique(),
   email: varchar().unique().notNull(),
-  username: varchar().notNull(),
+  username: varchar().unique().notNull(),
+  displayName: varchar('display_name'),
   avatar: varchar(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at')

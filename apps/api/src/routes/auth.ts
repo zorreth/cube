@@ -1,6 +1,7 @@
 import type { FastifyInstance, FastifyReply } from 'fastify';
 import { db } from '../db';
 import { usersTable } from '../db/schema';
+import { eq } from 'drizzle-orm';
 
 type DiscordUser = {
   id: string;
@@ -15,6 +16,12 @@ type GoogleUser = {
   picture: string;
   email: string;
 };
+
+function generateUsername() {
+  const bytes = new Uint8Array(10);
+  crypto.getRandomValues(bytes);
+  return Buffer.from(bytes).toString('base64url').substring(0, 10);
+}
 
 async function saveUser(
   fastify: FastifyInstance,
@@ -69,7 +76,8 @@ export async function authRoutes(fastify: FastifyInstance) {
 
     return saveUser(fastify, reply, {
       discordId: discordUser.id,
-      username: discordUser.username,
+      displayName: discordUser.username,
+      username: generateUsername(),
       avatar: `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png`,
       email: discordUser.email,
     });
@@ -92,7 +100,8 @@ export async function authRoutes(fastify: FastifyInstance) {
 
     return saveUser(fastify, reply, {
       googleId: googleUser.id,
-      username: googleUser.name,
+      displayName: googleUser.name,
+      username: generateUsername(),
       avatar: googleUser.picture,
       email: googleUser.email,
     });

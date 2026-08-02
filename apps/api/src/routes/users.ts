@@ -26,6 +26,7 @@ export async function usersRoutes(fastify: FastifyInstance) {
         .select({
           id: usersTable.id,
           username: usersTable.username,
+          displayName: usersTable.displayName,
           avatar: usersTable.avatar,
         })
         .from(usersTable)
