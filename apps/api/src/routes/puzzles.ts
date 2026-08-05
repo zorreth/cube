@@ -74,9 +74,11 @@ export async function puzzlesRoutes(fastify: FastifyInstance) {
       onRequest: [fastify.authenticate],
     },
     async (req, reply) => {
+      const { name, color } = req.body;
+
       const [updatedPuzzle] = await db
         .update(puzzlesTable)
-        .set(req.body)
+        .set({ name, color })
         .where(and(eq(puzzlesTable.id, req.params.id), eq(puzzlesTable.userId, req.user.sub)))
         .returning();
 
