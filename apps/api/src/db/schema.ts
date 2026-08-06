@@ -1,5 +1,5 @@
 import { defineRelations } from 'drizzle-orm';
-import { integer, pgTable, timestamp, varchar } from 'drizzle-orm/pg-core';
+import { boolean, integer, pgTable, timestamp, varchar } from 'drizzle-orm/pg-core';
 
 export const usersTable = pgTable('users', {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
@@ -40,6 +40,8 @@ export const solvesTable = pgTable('solves', {
     .references(() => puzzlesTable.id),
   time: integer().notNull(),
   scramble: varchar(),
+  isPenalty: boolean('is_penalty').notNull().default(false),
+  isDnf: boolean('is_dnf').notNull().default(false),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at')
     .defaultNow()

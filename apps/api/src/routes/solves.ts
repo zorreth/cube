@@ -49,4 +49,12 @@ export async function solvesRoutes(fastify: FastifyInstance) {
       return reply.status(201).send(solve);
     },
   );
+
+  fastify.get(
+    '',
+    { schema: { tags: ['solves'] }, onRequest: [fastify.authenticate] },
+    async (req, _) => {
+      return db.select().from(solvesTable).where(eq(solvesTable.userId, req.user.sub));
+    },
+  );
 }
