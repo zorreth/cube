@@ -13,17 +13,18 @@
     "apps/api": {
       "name": "api",
       "dependencies": {
-        "@fastify/jwt": "^10.2.1",
-        "@fastify/oauth2": "^8.2.0",
+        "@fastify/jwt": "^10.2.2",
+        "@fastify/oauth2": "^8.3.0",
+        "@fastify/rate-limit": "^11.2.0",
         "@fastify/swagger": "^9.8.1",
         "@fastify/swagger-ui": "^6.1.1",
-        "drizzle-orm": "^1.0.0-rc.4-de6c356",
-        "fastify": "^5.11.2",
+        "drizzle-orm": "^1.0.0-rc.5-ab785fc",
+        "fastify": "^5.12.0",
         "fastify-plugin": "^6.0.0",
       },
       "devDependencies": {
         "@types/bun": "latest",
-        "drizzle-kit": "^1.0.0-rc.4-ca0f029",
+        "drizzle-kit": "^1.0.0-rc.5-ab785fc",
       },
       "peerDependencies": {
         "typescript": "^5.9.2",
@@ -104,6 +105,8 @@
     "@fastify/oauth2": ["@fastify/oauth2@8.3.0", "", { "dependencies": { "@fastify/cookie": "^11.0.2", "fastify-plugin": "^6.0.0", "simple-oauth2": "^5.1.0" } }, "sha512-ZVjoOkBeWRBYPRIL3XiWzd30DqYMkRaoyxBxIUE0ciICtXpFLX0YpM4JiUwauF3vObqsqntF2b8GDXJ9/Gpr5A=="],
 
     "@fastify/proxy-addr": ["@fastify/proxy-addr@5.1.0", "", { "dependencies": { "@fastify/forwarded": "^3.0.0", "ipaddr.js": "^2.1.0" } }, "sha512-INS+6gh91cLUjB+PVHfu1UqcB76Sqtpyp7bnL+FYojhjygvOPA9ctiD/JDKsyD9Xgu4hUhCSJBPig/w7duNajw=="],
+
+    "@fastify/rate-limit": ["@fastify/rate-limit@11.2.0", "", { "dependencies": { "@lukeed/ms": "^2.0.2", "fastify-plugin": "^6.0.0", "ip-address": "^10.2.0", "toad-cache": "^3.7.0" } }, "sha512-X7osJd4XSvMoejYrnJkSZYYjY1eNYoBqhjlzf1RakC2204qExFqZFTKj5+T7VuzA/iUI9Z3UoSqQRkB2HpG0oQ=="],
 
     "@fastify/send": ["@fastify/send@4.1.0", "", { "dependencies": { "@lukeed/ms": "^2.0.2", "escape-html": "~1.0.3", "fast-decode-uri-component": "^1.0.1", "http-errors": "^2.0.0", "mime": "^3" } }, "sha512-TMYeQLCBSy2TOFmV95hQWkiTYgC/SEx7vMdV+wnZVX4tt8VBLKzmH8vV9OzJehV0+XBfg+WxPMt5wp+JBUKsVw=="],
 
@@ -226,6 +229,8 @@
     "http-errors": ["http-errors@2.0.1", "", { "dependencies": { "depd": "~2.0.0", "inherits": "~2.0.4", "setprototypeof": "~1.2.0", "statuses": "~2.0.2", "toidentifier": "~1.0.1" } }, "sha512-4FbRdAX+bSdmo4AUFuS0WNiPz8NgFt+r8ThgNWmlrjQjt1Q7ZR9+zTlce2859x4KSXrwIsaeTqDoKQmtP8pLmQ=="],
 
     "inherits": ["inherits@2.0.4", "", {}, "sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ=="],
+
+    "ip-address": ["ip-address@10.5.0", "", {}, "sha512-R5SnVLJmgYYvf2F2ZgwSBnelz5G4q5AxIC277GDfUaNbrZKNANcBC7RHqYYePlszf4kBolVkJauG0ZjHHFh55g=="],
 
     "ipaddr.js": ["ipaddr.js@2.4.0", "", {}, "sha512-9VGk3HGanVE6JoZXHiCpnGy5X0jYDnN4EA4lntFPj+1vIWlFhIylq2CrrCOJH9EAhc5CYhq18F2Av2tgoAPsYQ=="],
 

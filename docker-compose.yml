@@ -11,5 +11,16 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: app
 
+  api:
+    build:
+      context: .
+      dockerfile: ./apps/api/Dockerfile
+    restart: always
+    ports:
+      - 3000:3000
+    environment:
+      - DATABASE_URL=postgres://postgres:password@postgres:5432/app
+      - JWT_SECRET=verysecret
+
 volumes:
   pgdata:
