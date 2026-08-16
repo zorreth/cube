@@ -13,5 +13,5 @@ COPY . .
 WORKDIR /usr/src/app/apps/api
 
 USER bun
-EXPOSE 3000/tcp
+EXPOSE 8080/tcp
 ENTRYPOINT ["sh", "-c", "bun run migrate && bun run start"]
