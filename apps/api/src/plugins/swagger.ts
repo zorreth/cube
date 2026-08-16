@@ -2,8 +2,8 @@ import fp from 'fastify-plugin';
 import fastifySwagger from '@fastify/swagger';
 import fastifySwaggerUi from '@fastify/swagger-ui';
 
-export const swaggerPlugin = fp((fastify) => {
-  fastify.register(fastifySwagger, {
+export const swaggerPlugin = fp(async (fastify) => {
+  await fastify.register(fastifySwagger, {
     openapi: {
       info: {
         title: 'Cube API',
@@ -22,7 +22,7 @@ export const swaggerPlugin = fp((fastify) => {
     },
   });
 
-  fastify.register(fastifySwaggerUi, {
+  await fastify.register(fastifySwaggerUi, {
     routePrefix: '/docs',
   });
 });

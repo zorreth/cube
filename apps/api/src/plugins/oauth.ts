@@ -8,8 +8,8 @@ declare module 'fastify' {
   }
 }
 
-export const oauthPlugin = fp((fastify) => {
-  fastify.register(fastifyOauth2, {
+export const oauthPlugin = fp(async (fastify) => {
+  await fastify.register(fastifyOauth2, {
     name: 'discordOauth2',
     credentials: {
       client: {
@@ -24,7 +24,7 @@ export const oauthPlugin = fp((fastify) => {
     tags: ['auth'],
   });
 
-  fastify.register(fastifyOauth2, {
+  await fastify.register(fastifyOauth2, {
     name: 'googleOauth2',
     credentials: {
       client: {

@@ -13,8 +13,8 @@ declare module 'fastify' {
   }
 }
 
-export const jwtPlugin = fp((fastify) => {
-  fastify.register(fastifyJwt, {
+export const jwtPlugin = fp(async (fastify) => {
+  await fastify.register(fastifyJwt, {
     secret: process.env.JWT_SECRET!,
     cookie: {
       cookieName: 'token',
