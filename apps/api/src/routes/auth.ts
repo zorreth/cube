@@ -1,7 +1,6 @@
 import type { FastifyInstance, FastifyReply } from 'fastify';
 import { db } from '../db';
 import { usersTable } from '../db/schema';
-import { eq } from 'drizzle-orm';
 
 type DiscordUser = {
   id: string;
