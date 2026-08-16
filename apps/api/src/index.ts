@@ -1,7 +1,5 @@
 import Fastify from 'fastify';
-import { jwtPlugin } from './plugins/jwt';
-import { swaggerPlugin } from './plugins/swagger';
-import { oauthPlugin } from './plugins/oauth';
+import { swaggerPlugin, oauthPlugin, jwtPlugin, rateLimitPlugin } from './plugins';
 import { authRoutes, usersRoutes, puzzlesRoutes, solvesRoutes } from './routes';
 
 const fastify = Fastify({ logger: true });
@@ -9,6 +7,7 @@ const fastify = Fastify({ logger: true });
 fastify.register(swaggerPlugin);
 fastify.register(oauthPlugin);
 fastify.register(jwtPlugin);
+fastify.register(rateLimitPlugin);
 
 fastify.register(authRoutes, { prefix: '/api/auth' });
 fastify.register(usersRoutes, { prefix: '/api/users' });
