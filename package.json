@@ -1,17 +1,19 @@
 {
   "name": "cube",
   "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
   "scripts": {
     "dev": "turbo run dev",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "lint": "oxlint",
+    "format": "oxfmt"
   },
   "devDependencies": {
-    "prettier": "^3.9.6",
+    "oxfmt": "^0.63.0",
+    "oxlint": "^1.78.0",
     "turbo": "^2.10.10",
     "typescript": "5.9.2"
-  },
-  "engines": {
-    "node": ">=18"
   },
   "devEngines": {
     "packageManager": {
@@ -19,7 +21,7 @@
       "version": "1.3.14"
     }
   },
-  "workspaces": [
-    "apps/*"
-  ]
+  "engines": {
+    "node": ">=18"
+  }
 }
