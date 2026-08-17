@@ -4,7 +4,7 @@ import { Nunito_Sans } from 'next/font/google';
 import { cn } from '@/lib/utils';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { SidebarProvider } from '@/components/ui/sidebar';
-import { AppSidebar } from '@/components/AppSidebar';
+import { AppSidebar } from '@/components/sidebar/app-sidebar';
 
 const nunitoSans = Nunito_Sans({ subsets: ['latin'], variable: '--font-sans' });
 
